@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "314229576163",
+    "firebase_url": "https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app",
+    "project_id": "il-tris-pizzeria-ds",
+    "storage_bucket": "il-tris-pizzeria-ds.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:314229576163:android:9da25155565eb3764690d6",
+        "android_client_info": {
+          "package_name": "com.example.il_tris_manager"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "314229576163-afgisamgrb6l9c371gmnovl63jc78rjk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAhHsbuT8vt4plKkY6Cdo69dmx8Kdq4mqY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "314229576163-74trg1v59sijnq9dtnnscendte589pd3.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "314229576163-r3ru2c86ve9fa3k3grullnj6ijl5c3nl.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.ilTrisManager"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
