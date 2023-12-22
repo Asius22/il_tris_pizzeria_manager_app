@@ -25,6 +25,7 @@ Future<void> main() async {
       ),
       BlocProvider(
         create: (context) => ImageBloc(),
+        lazy: false,
       ),
     ],
     child: const MyApp(),
@@ -52,7 +53,7 @@ class MyApp extends StatelessWidget {
       theme: ThemeData(colorScheme: lightColorScheme, useMaterial3: true),
       routes: {
         loginRoute: (context) => LoginPage(),
-        imageRoute: (context) => ImagePage(),
+        imageRoute: (context) => const ImagePage(),
         homeRoute: (context) => HomePage(initialRoute: 0)
       },
       initialRoute:

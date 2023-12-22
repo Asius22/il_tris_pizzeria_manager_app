@@ -15,3 +15,12 @@ class ImageInitialized extends ImageState {
   @override
   List<Object> get props => [rawDataMap];
 }
+
+class ImageUpdatedState extends ImageState {
+  const ImageUpdatedState(this.rawDataMap, {required this.imageUpdated});
+  final Map<String, Uint8List> rawDataMap;
+  final String imageUpdated;
+
+  @override
+  List<Object> get props => [rawDataMap, imageUpdated];
+}

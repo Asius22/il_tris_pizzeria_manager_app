@@ -59,8 +59,18 @@ class ProductRepository {
         return "Panuozzi";
       case "Pizza":
         return "Pizze";
+      case "Primo":
+        return "Primi";
+      case "Secondo":
+        return "Secondi";
+      case "Frittura":
+        return "Fritture";
+      case "Vino":
+        return "Vini";
+      case "Dolce":
+        return "Dolci";
       default:
-        return "";
+        return "Prove";
     }
   }
 }

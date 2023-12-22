@@ -16,6 +16,7 @@ class DetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
     return Scaffold(
+      resizeToAvoidBottomInset: true,
       appBar: AppBar(
         backgroundColor: colorScheme.secondaryContainer,
         title: Text(
@@ -29,37 +30,40 @@ class DetailPage extends StatelessWidget {
         child: const Icon(Icons.save),
         onPressed: () => _saveProductUpdate(context),
       ),
-      body: SafeArea(
-        child: Stack(
-          children: [
-            const Positioned(
-              bottom: -130,
-              right: -110,
-              child: CircleWidget(
-                radius: 120,
-                opacity: 100,
+      body: SingleChildScrollView(
+        child: SizedBox(
+          height: MediaQuery.of(context).size.height,
+          child: Stack(
+            children: [
+              const Positioned(
+                bottom: -130,
+                right: -110,
+                child: CircleWidget(
+                  radius: 120,
+                  opacity: 100,
+                ),
               ),
-            ),
-            const Positioned(
-              top: 120,
-              left: -90,
-              child: CircleWidget(
-                radius: 120,
+              const Positioned(
+                top: 120,
+                left: -90,
+                child: CircleWidget(
+                  radius: 120,
+                ),
               ),
-            ),
-            const Positioned(
-              top: -150,
-              right: -120,
-              child: CircleWidget(
-                radius: 178,
+              const Positioned(
+                top: -150,
+                right: -120,
+                child: CircleWidget(
+                  radius: 178,
+                ),
               ),
-            ),
-            Padding(
-              padding:
-                  const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-              child: DetailProductForm(key: _formKey, product: product),
-            ),
-          ],
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 16.0, vertical: 16.0),
+                child: DetailProductForm(key: _formKey, product: product),
+              ),
+            ],
+          ),
         ),
       ),
     );

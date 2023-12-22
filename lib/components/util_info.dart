@@ -6,7 +6,17 @@ final email =
     RegExp(r"^[A-Za-z0-9\-\_\.]+@[A-Za-z]+(.[A-Za-z]+)*.[A-Za-z]{2,4}$");
 
 const animationDuration = Duration(milliseconds: 300);
-const List<String> typeList = ["Antipasto", "Pizza", "Panuozzo", "Bibita"];
+const List<String> typeList = [
+  "Antipasto",
+  "Pizza",
+  "Panuozzo",
+  "Bibita",
+  "Frittura",
+  "Dolce",
+  "Primo",
+  "Secondo",
+  "Vino"
+];
 
 const imageRectRadius = BorderRadius.all(Radius.circular(16.0));
 const primaryPadding = EdgeInsets.all(8.0);

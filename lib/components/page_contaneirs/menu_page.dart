@@ -55,7 +55,7 @@ class _MenuPageState extends State<MenuPage> {
             Expanded(
               child: MenuList(
                 productList: widget.productList,
-                filter: _filter,
+                filter: _filter.toLowerCase().trim(),
               ),
             ),
           ],

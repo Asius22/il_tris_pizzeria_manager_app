@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/product_type_dropdown.dart';
 import 'package:il_tris_manager/components/repository_dialog.dart';
 import 'package:il_tris_manager/model/product.dart';
+import 'package:il_tris_manager/pages/route_names.dart';
+import 'package:translator/translator.dart';
 
 class MenuAddProductForm extends StatefulWidget {
   const MenuAddProductForm({super.key});
@@ -161,21 +163,54 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
   }
 
   void _saveProduct(BuildContext context) async {
+    translatedProduct(_descriptionController.text).then((value) async =>
+        await showDialog(
+            context: context,
+            builder: (context) => RepositoryDialog(
+                action: RepositoryDialogAction.salva,
+                product: value)).then((value) =>
+            Navigator.popUntil(context, ModalRoute.withName(homeRoute))));
+  }
+
+  Future<Product> translatedProduct(String des) async {
+    showDialog(
+      context: context,
+      builder: (context) => const Center(
+        child: CircularProgressIndicator(),
+      ),
+    );
+    final translator = GoogleTranslator();
+    Translation? de, fr, en;
+    if (des != "") {
+      de = await translator.translate(
+        des,
+        from: "it",
+        to: "de",
+      );
+      fr = await translator.translate(
+        des,
+        from: "it",
+        to: "fr",
+      );
+      en = await translator.translate(
+        des,
+        from: "it",
+        to: "en",
+      );
+    }
+
     final List<double> prezzi = [];
     for (var c in _priceControllerList) {
       prezzi.add(double.tryParse(c.text) ?? 0.0);
     }
-    await showDialog(
-      context: context,
-      builder: (context) => RepositoryDialog(
-        action: RepositoryDialogAction.salva,
-        product: Product(
-          nome: _nameController.text,
-          descrizione: _descriptionController.text,
-          type: _typeController.text,
-          prezzi: prezzi,
-        ),
-      ),
+    return Product(
+      nome: _nameController.text,
+      descrizione: _descriptionController.text,
+      descrizioneEn: en?.text ?? "",
+      descrizioneFr: fr?.text ?? "",
+      descrizioneDe: de?.text ?? "",
+      type: _typeController.text,
+      prezzi: prezzi,
     );
   }
 

@@ -2,7 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
 
 class ImageRenameAlert extends StatelessWidget {
-  ImageRenameAlert({super.key});
+  final String text;
+  ImageRenameAlert({super.key, this.text = "nome"});
   final TextEditingController controller = TextEditingController();
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,7 @@ class ImageRenameAlert extends StatelessWidget {
         ),
       ],
       content: OutlinedTextField(
-        label: "nome",
+        label: text,
         padding: const EdgeInsets.all(4.0),
         controller: controller,
       ),

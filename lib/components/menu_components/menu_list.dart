@@ -22,13 +22,14 @@ class MenuList extends StatelessWidget {
         itemBuilder: (context, index) {
           final item = productList[index];
           if (filter == "" ||
-              item.type.toLowerCase() == filter.trim().toLowerCase()) {
+              item.type.toLowerCase().contains(filter) ||
+              item.nome.toLowerCase().contains(filter)) {
             return Padding(
               padding: const EdgeInsets.all(8.0),
               child: Dismissible(
                 direction: DismissDirection.endToStart,
                 confirmDismiss: (direction) => _askForDismiss(context, item),
-                onDismissed: (direction) => _handleDismiss(index),
+                onDismissed: (direction) => _handleDismiss(item),
                 background: Container(
                   decoration: BoxDecoration(
                     borderRadius: const BorderRadius.all(Radius.circular(8.0)),
@@ -67,7 +68,7 @@ class MenuList extends StatelessWidget {
       ) ??
       false;
 
-  void _handleDismiss(int index) {
-    productList.removeAt(index);
+  void _handleDismiss(Product p) {
+    productList.removeAt(productList.indexOf(p));
   }
 }

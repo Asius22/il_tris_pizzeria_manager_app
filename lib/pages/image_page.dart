@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:il_tris_manager/bloc/image_bloc.dart';
 import 'package:il_tris_manager/components/image_components/future_image_widget.dart';
+import 'package:il_tris_manager/components/image_components/image_name_alert.dart';
+import 'package:il_tris_manager/model/fire_images.dart';
 import 'package:il_tris_manager/pages/waiting_page.dart';
 import 'package:image_picker/image_picker.dart';
 
@@ -14,8 +16,10 @@ class ImagePage extends StatelessWidget {
     return SafeArea(
       child: BlocBuilder<ImageBloc, ImageState>(
         builder: (context, state) {
-          if (state is ImageInitialized) {
-            final data = state.rawDataMap;
+          if (state is ImageInitialized || state is ImageUpdatedState) {
+            final data = (state is ImageInitialized)
+                ? state.rawDataMap
+                : (state as ImageUpdatedState).rawDataMap;
             final keys = data.keys.toList();
 
             return GridView.builder(
@@ -42,7 +46,6 @@ class ImagePage extends StatelessWidget {
                     ),
             );
           } else {
-            BlocProvider.of<ImageBloc>(context).add(ImageInitEvent());
             return const WaitingPage();
           }
         },
@@ -51,17 +54,27 @@ class ImagePage extends StatelessWidget {
   }
 
   _pickImage(BuildContext context) async {
-    XFile? pickedFile =
-        await ImagePicker().pickImage(source: ImageSource.gallery);
-    if (pickedFile != null) {
-      File f = File(pickedFile.path);
-
-/* ELIMINARE QUESTO COMMENTO ED IMPLEMENTARE L'INSERIMENTO DI UNA NUOVA IMMAGINE
-      String name = await showDialog<String>(
-              context: context, builder: (context) => ImageRenameAlert()) ??
-          "";
-      final image = FireImage(key: name, file: f);
-*/
-    }
+    await ImagePicker().pickImage(source: ImageSource.gallery).then(
+      (value) async {
+        if (value != null) {
+          File f = File(value.path);
+          await showDialog(
+              context: context, builder: (context) => ImageRenameAlert()).then(
+            (value) async {
+              final image = FireImage(key: value ?? "", file: f);
+              await showDialog(
+                context: context,
+                builder: (context) => ImageRenameAlert(
+                  text: "Directory: ",
+                ),
+              ).then((value) {
+                BlocProvider.of<ImageBloc>(context).add(
+                    SaveImageEvent(image: image.copyWith(directory: value)));
+              });
+            },
+          );
+        }
+      },
+    );
   }
 }

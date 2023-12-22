@@ -10,6 +10,9 @@ class DetailProductForm extends StatefulWidget {
 
 class DetailProductFormState extends State<DetailProductForm> {
   late final TextEditingController _controllerDescrizione;
+  late final TextEditingController _controllerDescrizioneEn;
+  late final TextEditingController _controllerDescrizioneFr;
+  late final TextEditingController _controllerDescrizioneDe;
   late final TextEditingController _controllerNome;
   final List<Widget> _priceWidgetList = [];
   late Product _product;
@@ -17,9 +20,17 @@ class DetailProductFormState extends State<DetailProductForm> {
   @override
   void initState() {
     _product = widget.product;
+    //! crea
     _controllerDescrizione = TextEditingController();
+    _controllerDescrizioneEn = TextEditingController();
+    _controllerDescrizioneFr = TextEditingController();
+    _controllerDescrizioneDe = TextEditingController();
     _controllerNome = TextEditingController();
+    //! inizializza
     _controllerDescrizione.text = _product.descrizione;
+    _controllerDescrizioneEn.text = _product.descrizioneEn;
+    _controllerDescrizioneFr.text = _product.descrizioneFr;
+    _controllerDescrizioneDe.text = _product.descrizioneDe;
     _controllerNome.text = _product.nome;
     super.initState();
   }
@@ -27,6 +38,9 @@ class DetailProductFormState extends State<DetailProductForm> {
   @override
   void dispose() {
     _controllerDescrizione.dispose();
+    _controllerDescrizioneEn.dispose();
+    _controllerDescrizioneFr.dispose();
+    _controllerDescrizioneDe.dispose();
     _controllerNome.dispose();
     for (TextEditingController t in _priceControllerList) {
       t.dispose();
@@ -62,10 +76,42 @@ class DetailProductFormState extends State<DetailProductForm> {
             ),
           ),
         ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: _controllerDescrizioneEn,
+            maxLines: null,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("inglese"),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: _controllerDescrizioneFr,
+            maxLines: null,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("francese"),
+            ),
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: TextField(
+            controller: _controllerDescrizioneDe,
+            maxLines: null,
+            decoration: const InputDecoration(
+              border: OutlineInputBorder(),
+              label: Text("tedesco"),
+            ),
+          ),
+        ),
         Row(
           children: [..._getPriceWidgets()],
         ),
-        const Expanded(flex: 4, child: SizedBox()),
         Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -161,6 +207,9 @@ class DetailProductFormState extends State<DetailProductForm> {
   Product get productUpdated => Product(
       nome: _controllerNome.text,
       descrizione: _controllerDescrizione.text,
+      descrizioneEn: _controllerDescrizioneEn.text,
+      descrizioneFr: _controllerDescrizioneFr.text,
+      descrizioneDe: _controllerDescrizioneDe.text,
       type: widget.product.type,
       prezzi: _getPricesList());
 }

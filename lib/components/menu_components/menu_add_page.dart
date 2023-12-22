@@ -17,8 +17,8 @@ class MenuAddPage extends StatelessWidget {
         ),
         backgroundColor: Theme.of(context).colorScheme.secondaryContainer,
       ),
-      body: Stack(
-        children: const [
+      body: const Stack(
+        children: [
           Positioned(
             bottom: -130,
             right: -110,
