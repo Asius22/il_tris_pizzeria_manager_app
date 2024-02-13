@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/product_type_dropdown.dart';
 import 'package:il_tris_manager/components/repository_dialog.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 import 'package:il_tris_manager/pages/route_names.dart';
 import 'package:translator/translator.dart';
 

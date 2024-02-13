@@ -3,7 +3,7 @@ import 'package:fluttertoast/fluttertoast.dart';
 import 'package:il_tris_manager/components/circle_widget.dart';
 import 'package:il_tris_manager/components/menu_components/detail_product_form.dart';
 import 'package:il_tris_manager/components/repository_dialog.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 
 class DetailPage extends StatelessWidget {
   DetailPage({super.key, required this.product, this.onTap});

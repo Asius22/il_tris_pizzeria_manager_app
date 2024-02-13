@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 import 'package:il_tris_manager/repository/repository.dart';
 
 part 'product_bloc_event.dart';

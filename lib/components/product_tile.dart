@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/menu_components/detail_page.dart';
 import 'package:il_tris_manager/components/menu_components/menu_tile.dart';
 import 'package:il_tris_manager/components/util_info.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 
 class ProductTile extends StatelessWidget {
   const ProductTile({super.key, required this.product});

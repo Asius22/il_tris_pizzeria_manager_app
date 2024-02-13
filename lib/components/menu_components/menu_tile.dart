@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 
 class MenuTile extends StatelessWidget {
   const MenuTile({super.key, required this.product, required this.onTap});

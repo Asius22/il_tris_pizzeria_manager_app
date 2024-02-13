@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:il_tris_manager/bloc/product_bloc.dart';
 import 'package:il_tris_manager/components/product_tile.dart';
 import 'package:il_tris_manager/components/repository_dialog.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 
 class MenuList extends StatelessWidget {
   const MenuList({super.key, this.filter = "", required this.productList});

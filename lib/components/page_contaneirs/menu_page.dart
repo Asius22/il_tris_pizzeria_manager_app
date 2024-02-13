@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/menu_components/menu_add_button.dart';
 import 'package:il_tris_manager/components/menu_components/menu_list.dart';
-import 'package:il_tris_manager/model/product.dart';
+import 'package:pizzeria_model_package/product.dart';
 
 class MenuPage extends StatefulWidget {
   const MenuPage({super.key, this.productList = const []});

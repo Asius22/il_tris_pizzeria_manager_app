@@ -47,7 +47,9 @@ dependencies:
   image_picker: ^0.8.7+4
   firebase_storage: ^11.2.1
   translator: ^0.1.7
-
+  intl: ^0.19.0
+  pizzeria_model_package:
+    path: "D:/Progetti Flutter/pizzeria_model_package"
 dev_dependencies:
   flutter_test:
     sdk: flutter

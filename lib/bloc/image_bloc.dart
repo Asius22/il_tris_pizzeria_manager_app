@@ -15,7 +15,7 @@ class ImageBloc extends Bloc<ImageEvent, ImageState> {
       () => add(NewImageFetchedEvent()),
     );
 
-    on<NewImageFetchedEvent>((event, emit) async {
+    on<NewImageFetchedEvent>((event, emit) {
       emit(ImageInitialized({..._repository.list}));
     });
 
