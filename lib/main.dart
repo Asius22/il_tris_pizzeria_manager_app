@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:il_tris_manager/bloc/businesshours_bloc.dart';
 import 'package:il_tris_manager/bloc/image_bloc.dart';
 import 'package:il_tris_manager/bloc/product_bloc.dart';
 import 'package:il_tris_manager/color_schemes.dart';
@@ -27,6 +28,10 @@ Future<void> main() async {
         create: (context) => ImageBloc(),
         lazy: false,
       ),
+      BlocProvider(
+        create: (context) => BusinesshoursBloc(),
+        lazy: true,
+      )
     ],
     child: const MyApp(),
   ));

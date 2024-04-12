@@ -21,17 +21,15 @@ class DetailProductFormState extends State<DetailProductForm> {
   void initState() {
     _product = widget.product;
     //! crea
-    _controllerDescrizione = TextEditingController();
-    _controllerDescrizioneEn = TextEditingController();
-    _controllerDescrizioneFr = TextEditingController();
-    _controllerDescrizioneDe = TextEditingController();
-    _controllerNome = TextEditingController();
-    //! inizializza
-    _controllerDescrizione.text = _product.descrizione;
-    _controllerDescrizioneEn.text = _product.descrizioneEn;
-    _controllerDescrizioneFr.text = _product.descrizioneFr;
-    _controllerDescrizioneDe.text = _product.descrizioneDe;
-    _controllerNome.text = _product.nome;
+    _controllerDescrizione = TextEditingController(text: _product.descrizione);
+    _controllerDescrizioneEn =
+        TextEditingController(text: _product.descrizioneEn);
+    _controllerDescrizioneFr =
+        TextEditingController(text: _product.descrizioneFr);
+    _controllerDescrizioneDe =
+        TextEditingController(text: _product.descrizioneDe);
+    _controllerNome = TextEditingController(text: _product.nome);
+
     super.initState();
   }
 
@@ -50,9 +48,7 @@ class DetailProductFormState extends State<DetailProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      mainAxisSize: MainAxisSize.max,
-      crossAxisAlignment: CrossAxisAlignment.center,
+    return ListView(
       children: [
         Padding(
           padding: const EdgeInsets.all(16.0),
@@ -109,12 +105,13 @@ class DetailProductFormState extends State<DetailProductForm> {
             ),
           ),
         ),
-        Row(
+        Wrap(
           children: [..._getPriceWidgets()],
         ),
-        Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        Wrap(
+          verticalDirection: VerticalDirection.down,
+          runAlignment: WrapAlignment.center,
+          direction: Axis.vertical,
           children: [
             FilledButton.icon(
               onPressed: _aggiungiPrezzo,
@@ -129,8 +126,9 @@ class DetailProductFormState extends State<DetailProductForm> {
           ],
         ),
         const Expanded(
-          child: SizedBox(),
-        )
+            child: SizedBox(
+          height: 100,
+        ))
       ],
     );
   }

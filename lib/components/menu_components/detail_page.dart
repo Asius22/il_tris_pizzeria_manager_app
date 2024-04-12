@@ -58,8 +58,8 @@ class DetailPage extends StatelessWidget {
                 ),
               ),
               Padding(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 16.0, vertical: 16.0),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 16.0, vertical: 0.0),
                 child: DetailProductForm(key: _formKey, product: product),
               ),
             ],

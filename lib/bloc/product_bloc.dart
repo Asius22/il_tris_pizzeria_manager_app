@@ -2,6 +2,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizzeria_model_package/product.dart';
 import 'package:il_tris_manager/repository/repository.dart';
+import 'package:translator/translator.dart';
 
 part 'product_bloc_event.dart';
 part 'product_bloc_state.dart';
@@ -61,6 +62,41 @@ class ProductBloc extends Bloc<ProductBlocEvent, ProductBlocState> {
           }
         }
         emit(ProductBlocFetched(_menu));
+      },
+    );
+
+    on<TranslateAllProductEvent>(
+      (event, emit) async {
+        GoogleTranslator translator = GoogleTranslator();
+        emit(ProductBlocFetching());
+
+        for (Product p in _menu) {
+          if (p.descrizione.isNotEmpty) {
+            String input = p.descrizione;
+
+            String? en, de, fr;
+            if (p.descrizioneEn.isEmpty) {
+              await translator
+                  .translate(input, from: 'it', to: 'en')
+                  .then((value) => en = value.text);
+            }
+            if (p.descrizioneDe.isEmpty) {
+              await translator
+                  .translate(input, from: 'it', to: 'de')
+                  .then((value) => de = value.text);
+            }
+            if (p.descrizioneDe.isEmpty) {
+              await translator
+                  .translate(input, from: 'it', to: 'fr')
+                  .then((value) => fr = value.text);
+            }
+            _repository.update(
+                p.copyWith(
+                    descrizioneEn: en, descrizioneDe: de, descrizioneFr: fr),
+                p.nome);
+          }
+        }
+        add(FetchProductEvent());
       },
     );
   }

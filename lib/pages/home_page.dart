@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/navigation_bar.dart';
 import 'package:il_tris_manager/pages/image_page.dart';
 import 'package:il_tris_manager/pages/menu_bloc_page.dart';
+import 'package:il_tris_manager/pages/orari_page.dart';
 import 'package:il_tris_manager/pages/query_page.dart';
 
 class HomePage extends StatelessWidget {
@@ -20,14 +21,7 @@ class HomePage extends StatelessWidget {
       body: PageView(
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
-        children: [
-          const MenuBlocPage(),
-          const ImagePage(),
-          const QueryPage(),
-          Container(
-            color: Colors.amber,
-          ),
-        ],
+        children: const [MenuBlocPage(), ImagePage(), QueryPage(), OrariPage()],
       ),
     );
   }

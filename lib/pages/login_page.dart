@@ -53,7 +53,7 @@ class LoginPage extends StatelessWidget {
                       key: _loginKey,
                     ),
                     PasswordField(key: _passwordKey),
-                    Row(
+                    Column(
                       mainAxisSize: MainAxisSize.max,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -91,6 +91,7 @@ class LoginPage extends StatelessWidget {
                             }
                           },
                         ),
+                        const SizedBox(height: 8,),
                         FilledButton.tonal(
                             onPressed: () async {
                               if (_formkey.currentState!.validate()) {

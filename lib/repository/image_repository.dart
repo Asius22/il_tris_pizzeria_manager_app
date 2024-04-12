@@ -3,7 +3,7 @@ import 'dart:io';
 
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/foundation.dart';
-import 'package:flutter/widgets.dart';
+
 import 'package:il_tris_manager/model/fire_images.dart';
 
 ///Questa classe deve fare da intermediario tra il cloud storage ed il client
@@ -24,7 +24,7 @@ class ImageRepository extends ChangeNotifier {
   ];
 
   Map<String, Uint8List> get list => _imageDataList;
-  SettableMetadata _metadata = SettableMetadata(
+  final SettableMetadata _metadata = SettableMetadata(
       contentType: "image/jpeg", cacheControl: "public, max-age=3600");
   ImageRepository() {
     _storageRef = FirebaseStorage.instance;

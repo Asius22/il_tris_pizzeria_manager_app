@@ -76,16 +76,15 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
                     textInputAction: TextInputAction.next,
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
+                Wrap(
                   children: [..._getPriceFields()],
                 ),
                 const Expanded(
                   flex: 5,
                   child: SizedBox(),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                Wrap(
+                  alignment: WrapAlignment.spaceEvenly,
                   children: [
                     FilledButton.icon(
                       onPressed: _aggiungiPrezzo,
@@ -217,7 +216,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
   List<Widget> _getPriceFields() {
     if (_priceFields.isEmpty) {
       _priceFields.add(Container(
-        margin: const EdgeInsets.all(16.0),
+        margin: const EdgeInsets.all(8.0),
         width: 80,
         child: TextField(
           keyboardType: TextInputType.number,

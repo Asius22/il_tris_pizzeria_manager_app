@@ -31,3 +31,5 @@ class UpdateAllProductEvent extends ProductBlocEvent {
   final String type;
   final double newPrice, oldPrice;
 }
+
+class TranslateAllProductEvent extends ProductBlocEvent {}

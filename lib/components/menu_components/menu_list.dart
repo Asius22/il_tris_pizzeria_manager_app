@@ -18,45 +18,64 @@ class MenuList extends StatelessWidget {
         return Future.delayed(const Duration(milliseconds: 1));
       },
       child: ListView.builder(
-        itemCount: productList.length,
+        itemCount: productList.length + 1,
         itemBuilder: (context, index) {
-          final item = productList[index];
+          final item = productList[index == productList.length ? 0 : index];
           if (filter == "" ||
               item.type.toLowerCase().contains(filter) ||
               item.nome.toLowerCase().contains(filter)) {
-            return Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Dismissible(
-                direction: DismissDirection.endToStart,
-                confirmDismiss: (direction) => _askForDismiss(context, item),
-                onDismissed: (direction) => _handleDismiss(item),
-                background: Container(
-                  decoration: BoxDecoration(
-                    borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-                    color: Theme.of(context).colorScheme.errorContainer,
-                  ),
-                  alignment: Alignment.centerRight,
-                  child: Padding(
+            return index == productList.length
+                ? _translatorButton(context)
+                : Padding(
                     padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      "Elimina",
-                      style: Theme.of(context).textTheme.titleLarge?.copyWith(
-                          fontWeight: FontWeight.bold,
-                          color:
-                              Theme.of(context).colorScheme.onErrorContainer),
+                    child: Dismissible(
+                      direction: DismissDirection.endToStart,
+                      confirmDismiss: (direction) =>
+                          _askForDismiss(context, item),
+                      onDismissed: (direction) => _handleDismiss(item),
+                      background: Container(
+                        decoration: BoxDecoration(
+                          borderRadius:
+                              const BorderRadius.all(Radius.circular(8.0)),
+                          color: Theme.of(context).colorScheme.errorContainer,
+                        ),
+                        alignment: Alignment.centerRight,
+                        child: Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(
+                            "Elimina",
+                            style: Theme.of(context)
+                                .textTheme
+                                .titleLarge
+                                ?.copyWith(
+                                    fontWeight: FontWeight.bold,
+                                    color: Theme.of(context)
+                                        .colorScheme
+                                        .onErrorContainer),
+                          ),
+                        ),
+                      ),
+                      key: Key("${item.nome}${item.type}"),
+                      child: ProductTile(product: item),
                     ),
-                  ),
-                ),
-                key: Key("${item.nome}${item.type}"),
-                child: ProductTile(product: item),
-              ),
-            );
+                  );
           }
           return const SizedBox();
         },
       ),
     );
   }
+
+  Widget _translatorButton(BuildContext context) => ElevatedButton.icon(
+        style: const ButtonStyle(
+            padding: MaterialStatePropertyAll<EdgeInsetsGeometry>(
+                EdgeInsets.all(16))),
+        onPressed: () {
+          BlocProvider.of<ProductBloc>(context).add(TranslateAllProductEvent());
+        },
+        icon: const Icon(Icons.translate),
+        label: const Text(" TRADUCI TUTTO "),
+      );
 
   Future<bool> _askForDismiss(BuildContext context, Product p) async =>
       await showDialog<bool>(
