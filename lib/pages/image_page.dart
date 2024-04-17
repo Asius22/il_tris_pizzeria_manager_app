@@ -1,10 +1,11 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/bloc/image_bloc.dart';
+import 'package:pizzeria_model_package/blocs/image/image_bloc.dart';
+
 import 'package:il_tris_manager/components/image_components/future_image_widget.dart';
 import 'package:il_tris_manager/components/image_components/image_name_alert.dart';
-import 'package:il_tris_manager/model/fire_images.dart';
+import 'package:pizzeria_model_package/fire_images.dart';
 import 'package:il_tris_manager/pages/waiting_page.dart';
 import 'package:image_picker/image_picker.dart';
 

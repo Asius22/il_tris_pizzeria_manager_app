@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-import 'package:il_tris_manager/bloc/product_bloc.dart';
+import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:il_tris_manager/components/product_type_dropdown.dart';
 import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
 

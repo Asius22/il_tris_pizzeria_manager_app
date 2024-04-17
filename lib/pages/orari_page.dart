@@ -2,7 +2,7 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/bloc/businesshours_bloc.dart';
+import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.dart';
 import 'package:il_tris_manager/components/business_hours_components/day_card.dart';
 import 'package:il_tris_manager/pages/waiting_page.dart';
 import 'package:pizzeria_model_package/business_hours.dart';

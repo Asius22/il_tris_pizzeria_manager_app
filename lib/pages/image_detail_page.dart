@@ -2,7 +2,8 @@ import 'dart:typed_data';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/bloc/image_bloc.dart';
+import 'package:pizzeria_model_package/blocs/image/image_bloc.dart';
+
 import 'package:il_tris_manager/components/hero_widget.dart';
 import 'package:il_tris_manager/components/util_info.dart';
 import 'package:image_picker/image_picker.dart';

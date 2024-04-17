@@ -2,9 +2,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/bloc/businesshours_bloc.dart';
-import 'package:il_tris_manager/bloc/image_bloc.dart';
-import 'package:il_tris_manager/bloc/product_bloc.dart';
+import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.dart';
+import 'package:pizzeria_model_package/blocs/image/image_bloc.dart';
+
+import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:il_tris_manager/color_schemes.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:il_tris_manager/pages/home_page.dart';
