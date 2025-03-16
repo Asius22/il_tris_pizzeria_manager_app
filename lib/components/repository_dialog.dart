@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
-import 'package:pizzeria_model_package/product.dart';
+import 'package:pizzeria_model_package/model/product.dart';
 
 class RepositoryDialog extends StatelessWidget {
   const RepositoryDialog(

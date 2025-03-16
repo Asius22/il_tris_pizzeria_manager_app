@@ -1,6 +1,4 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:il_tris_manager/pages/route_names.dart';
 
 class CustomNavigationBar extends StatefulWidget {
   const CustomNavigationBar(
@@ -13,7 +11,6 @@ class CustomNavigationBar extends StatefulWidget {
 
 class _CustomNavigationBarState extends State<CustomNavigationBar> {
   late int currentIndex;
-  static const _logoutIndex = 4;
   @override
   void initState() {
     currentIndex = widget.currentIndex;
@@ -22,20 +19,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
   }
 
   void _onTap(int newIndex) async {
-    if (newIndex == _logoutIndex) {
-      await FirebaseAuth.instance
-          .signOut()
-          .then((value) => Navigator.of(context)
-            ..popUntil((route) => !Navigator.of(context).canPop())
-            ..pushNamed(loginRoute));
-    } else {
-      setState(() {
-        currentIndex = newIndex;
-        widget.pageController?.animateToPage(newIndex,
-            duration: const Duration(milliseconds: 300),
-            curve: Curves.easeInOut);
-      });
-    }
+    setState(() {
+      currentIndex = newIndex;
+      widget.pageController?.animateToPage(newIndex,
+          duration: const Duration(milliseconds: 300), curve: Curves.easeInOut);
+    });
   }
 
   @override
@@ -58,17 +46,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
           label: "Menu",
         ),
         BottomNavigationBarItem(
-          icon: Icon(Icons.image_outlined),
-          activeIcon: Icon(Icons.image),
-          label: "Images",
-        ),
-        BottomNavigationBarItem(
           icon: Icon(Icons.code),
           label: "Query",
         ),
         BottomNavigationBarItem(
             icon: Icon(Icons.calendar_month), label: "Orari"),
-        BottomNavigationBarItem(icon: Icon(Icons.logout), label: "Log Out")
       ],
       onTap: _onTap,
     );

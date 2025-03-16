@@ -1,13 +1,14 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:il_tris_manager/components/product_type_dropdown.dart';
 import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
 
 class QueryPage extends StatefulWidget {
   const QueryPage({super.key});
-
+  static const String routeName = "query";
   @override
   State<QueryPage> createState() => _QueryPageState();
 }
@@ -35,7 +36,7 @@ class _QueryPageState extends State<QueryPage> {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme.titleMedium;
     return SafeArea(
-      child: Padding(
+      child: Scaffold(body:Padding(
         padding: _padding,
         child: Column(
           mainAxisSize: MainAxisSize.max,
@@ -116,7 +117,7 @@ class _QueryPageState extends State<QueryPage> {
             )
           ],
         ),
-      ),
+      )),
     );
   }
 
@@ -130,17 +131,17 @@ class _QueryPageState extends State<QueryPage> {
       if (newPrice != oldPrice) {
         BlocProvider.of<ProductBloc>(context).add(UpdateAllProductEvent(
             newPrice: newPrice, oldPrice: oldPrice, type: type));
-        Fluttertoast.showToast(
-          msg: "Richiesta inviata al server!",
+        log(
+          "Richiesta inviata al server!",
         );
       } else {
-        Fluttertoast.showToast(
-          msg: "Modifica inutile...",
+        log(
+          "Modifica inutile...",
         );
       }
     } else {
-      Fluttertoast.showToast(
-        msg: "Riempi tutti i campi!",
+      log(
+        "Riempi tutti i campi!",
       );
     }
   }

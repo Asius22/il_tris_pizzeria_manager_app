@@ -1,67 +1,61 @@
 import 'package:flutter/material.dart';
-import 'package:il_tris_manager/components/menu_components/menu_add_button.dart';
-import 'package:il_tris_manager/components/menu_components/menu_list.dart';
-import 'package:pizzeria_model_package/product.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:il_tris_manager/components/menu/menu_list.dart';
+import 'package:il_tris_manager/components/util_info.dart';
+import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
+import 'package:pizzeria_model_package/model/product.dart';
+import 'package:sizer/sizer.dart';
 
-class MenuPage extends StatefulWidget {
+class MenuPage extends StatelessWidget {
   const MenuPage({super.key, this.productList = const []});
+
   final List<Product> productList;
 
   @override
-  State<MenuPage> createState() => _MenuPageState();
-}
-
-class _MenuPageState extends State<MenuPage> {
-  late final TextEditingController _search;
-  String _filter = "";
-  @override
-  void initState() {
-    _search = TextEditingController();
-    super.initState();
-  }
-
-  @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Expanded(
-                    child: TextField(
-                      controller: _search,
-                      maxLines: 1,
-                      textInputAction: TextInputAction.done,
-                      decoration: const InputDecoration(
-                          isDense: true,
-                          border: OutlineInputBorder(),
-                          suffixIcon: Icon(Icons.search)),
-                      onEditingComplete: () {
-                        setState(() {
-                          _filter = _search.text;
-                        });
-                        FocusScope.of(context).unfocus();
-                      },
-                    ),
-                  ),
-                ],
+    return SizedBox(
+      width: 100.w,
+      child: ListView(
+        children: typeList
+            .map<Widget>(
+              (categoria) => Padding(
+                padding: EdgeInsets.all(8),
+                child: FilledButton.tonal(
+                    onPressed: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => MenuList(
+                              productType: categoria,
+                              productList: productList
+                                  .where(
+                                    (element) => element.type == categoria,
+                                  )
+                                  .toList(),
+                            ),
+                          ),
+                        ),
+                    child: Text(categoria)),
               ),
-            ),
-            Expanded(
-              child: MenuList(
-                productList: widget.productList,
-                filter: _filter.toLowerCase().trim(),
-              ),
-            ),
-          ],
-        ),
-        const Positioned(right: 20, bottom: 20, child: MenuAddButton())
-      ],
+            )
+            .toList()
+          ..add(
+            _translatorButton(context),
+          ),
+      ),
     );
   }
+
+  // TODO: testare
+  Widget _translatorButton(BuildContext context) => ElevatedButton.icon(
+        style: const ButtonStyle(
+          padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
+            EdgeInsets.all(16),
+          ),
+        ),
+        onPressed: () {
+          BlocProvider.of<ProductBloc>(context).add(TranslateAllProductEvent());
+        },
+        icon: const Icon(Icons.translate),
+        label: const Text(" TRADUCI TUTTO "),
+      );
 }

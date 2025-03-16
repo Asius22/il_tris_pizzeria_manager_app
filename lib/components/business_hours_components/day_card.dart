@@ -2,14 +2,14 @@ import 'dart:developer';
 import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:pizzeria_model_package/opening_hours.dart';
-import 'package:pizzeria_model_package/opening_hours_list.dart';
+
 import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
+import 'package:pizzeria_model_package/model/opening_hours.dart';
 
 class DayCard extends StatefulWidget {
   const DayCard({super.key, required this.giorno, required this.orariApertura});
   final String giorno;
-  final OpeningHoursList orariApertura;
+  final List<OpeningHours> orariApertura;
 
   @override
   State<DayCard> createState() => _DayCardState();
@@ -18,12 +18,12 @@ class DayCard extends StatefulWidget {
 class _DayCardState extends State<DayCard> {
   final List<TextEditingController> _controllerList = [];
   bool chiusoValue = false;
-  late OpeningHoursList orari;
+  late List<OpeningHours> orari;
   @override
   void initState() {
     super.initState();
     orari = widget.orariApertura;
-    chiusoValue = orari.lenght == 0;
+    chiusoValue = orari.isEmpty;
   }
 
   @override
@@ -57,12 +57,11 @@ class _DayCardState extends State<DayCard> {
                 onChanged: (value) => setState(() {
                   chiusoValue = !chiusoValue;
 
-                  if (orari.lenght == 0 && !chiusoValue) {
-                    orari.addHours(const OpeningHours(
-                        startHour: "00:00", endHour: "00:01"));
+                  if (orari.isEmpty && !chiusoValue) {
+                    orari.add(
+                        OpeningHours(startHour: "00:00", endHour: "00:01"));
                   } else {
-                    provider.add(UpdateBusinessHoursEvent(
-                        widget.giorno, OpeningHoursList(list: const [])));
+                    provider.add(UpdateBusinessHoursEvent(widget.giorno, []));
                   }
                 }),
               ),
@@ -113,13 +112,13 @@ class _DayCardState extends State<DayCard> {
                                 endHour: _controllerList[i + 1].text);
                             res.add(tmp);
                           }
-                          provider.add(UpdateBusinessHoursEvent(
-                              widget.giorno, OpeningHoursList(list: res)));
+                          provider.add(
+                              UpdateBusinessHoursEvent(widget.giorno, res));
                         } else {
                           log("[DEBUG] NON SALVARE");
                         }
                       },
-                      child: const Text("S A L V A"))
+                      child: const Text("SALVA"))
                 ])
               : const SizedBox()
         ],
@@ -130,8 +129,8 @@ class _DayCardState extends State<DayCard> {
   List<Widget> getColumnElements(double width) {
     List<Widget> res = [];
 
-    for (int i = 0; i < orari.lenght; i++) {
-      res.add(hoursFieldPair(width, i, orari.list[i]));
+    for (int i = 0; i < orari.length; i++) {
+      res.add(hoursFieldPair(width, i, orari[i]));
     }
 
     return res;
@@ -145,7 +144,7 @@ class _DayCardState extends State<DayCard> {
         SizedBox(
           width: fieldWidth,
           child: OutlinedTextField(
-            controller: _getNewEditingController(ora: orario.start),
+            controller: _getNewEditingController(ora: orario.startHour),
             label: "ora apertura",
           ),
         ),
@@ -154,7 +153,7 @@ class _DayCardState extends State<DayCard> {
             SizedBox(
               width: fieldWidth,
               child: OutlinedTextField(
-                controller: _getNewEditingController(ora: orario.end),
+                controller: _getNewEditingController(ora: orario.endHour),
                 label: "ora chiusura",
               ),
             ),
@@ -162,10 +161,10 @@ class _DayCardState extends State<DayCard> {
                 onPressed: () {
                   setState(() {
                     if (index == 0) {
-                      orari.addHours(const OpeningHours(
-                          startHour: "00:00", endHour: "00:01"));
+                      orari.add(
+                          OpeningHours(startHour: "00:00", endHour: "00:01"));
                     } else {
-                      orari.removeHours(orario);
+                      orari.remove(orario);
                     }
                   });
                   _controllerList.removeRange(0, _controllerList.length);

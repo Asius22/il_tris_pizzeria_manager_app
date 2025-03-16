@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyAhHsbuT8vt4plKkY6Cdo69dmx8Kdq4mqY',
-    appId: '1:314229576163:android:9da25155565eb3764690d6',
+    appId: '1:314229576163:android:ad20ebe6a390e1e34690d6',
     messagingSenderId: '314229576163',
     projectId: 'il-tris-pizzeria-ds',
     databaseURL: 'https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app',
@@ -68,4 +68,5 @@ class DefaultFirebaseOptions {
     iosClientId: '314229576163-r3ru2c86ve9fa3k3grullnj6ijl5c3nl.apps.googleusercontent.com',
     iosBundleId: 'com.example.ilTrisManager',
   );
+
 }

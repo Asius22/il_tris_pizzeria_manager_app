@@ -7,10 +7,13 @@ import 'package:il_tris_manager/pages/waiting_page.dart';
 class MenuBlocPage extends StatelessWidget {
   const MenuBlocPage({super.key});
 
+  static const String routeName = "menu";
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocBuilder<ProductBloc, ProductBlocState>(
+      child: Scaffold(
+          body: BlocBuilder<ProductBloc, ProductBlocState>(
         buildWhen: (previous, current) => current is! UpdateSuccessState,
         builder: (context, state) {
           if (state is ProductBlocInitial) {
@@ -24,7 +27,7 @@ class MenuBlocPage extends StatelessWidget {
             );
           }
         },
-      ),
+      )),
     );
   }
 }
