@@ -8,6 +8,7 @@ class OutlinedTextField extends StatefulWidget {
       this.initialText,
       this.controller,
       this.padding,
+      this.allowMultipleLines = false,
       this.inputAction = TextInputAction.done,
       this.inputType = TextInputType.text});
   final TextInputAction inputAction;
@@ -17,6 +18,7 @@ class OutlinedTextField extends StatefulWidget {
   final Widget? icon;
   final String? initialText;
   final EdgeInsets? padding;
+  final bool allowMultipleLines;
 
   @override
   State<OutlinedTextField> createState() => OutlinedTextFieldState();
@@ -55,6 +57,7 @@ class OutlinedTextFieldState extends State<OutlinedTextField> {
       child: TextField(
         textInputAction: widget.inputAction,
         controller: _controller,
+        maxLines: widget.allowMultipleLines ? null : 1,
         keyboardType: widget.inputType,
         decoration: _decoration.copyWith(
             errorBorder: OutlineInputBorder(

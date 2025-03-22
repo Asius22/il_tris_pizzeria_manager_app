@@ -56,6 +56,7 @@ class DetailProductFormState extends State<DetailProductForm> {
         ),
         OutlinedTextField(
           label: "Descrizione",
+          allowMultipleLines: true,
           controller: _descrizioneController,
         ),
         Row(
@@ -143,10 +144,8 @@ class DetailProductFormState extends State<DetailProductForm> {
 
   void _saveProductUpdate(BuildContext context) {
     Product p = productUpdated;
-    if (p != widget.product) {
-      BlocProvider.of<ProductBloc>(context)
-          .add(UpdateProductEvent(newProduct: p, key: p.nome));
-      Navigator.of(context).pop();
-    }
+    BlocProvider.of<ProductBloc>(context)
+        .add(UpdateProductEvent(newProduct: p, key: p.nome));
+    Navigator.of(context).pop();
   }
 }

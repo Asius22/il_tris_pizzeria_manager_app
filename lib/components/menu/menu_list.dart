@@ -7,7 +7,7 @@ import 'package:il_tris_manager/components/product_tile.dart';
 import 'package:il_tris_manager/components/repository_dialog.dart';
 import 'package:pizzeria_model_package/model/product.dart';
 
-class MenuList extends StatelessWidget {
+class MenuList extends StatefulWidget {
   const MenuList(
       {super.key, required this.productList, required this.productType});
 
@@ -15,34 +15,47 @@ class MenuList extends StatelessWidget {
   final List<Product> productList;
 
   @override
+  State<MenuList> createState() => _MenuListState();
+}
+
+class _MenuListState extends State<MenuList> {
+  @override
   Widget build(BuildContext context) {
+    final ProductBloc provider = BlocProvider.of<ProductBloc>(context);
     return Scaffold(
         appBar: AppBar(
-          title: Text(productType),
+          title: Text(widget.productType),
         ),
         floatingActionButton: MenuAddButton(
-          productType: productType,
+          productType: widget.productType,
         ),
-        body: RefreshIndicator(
-          color: Theme.of(context).colorScheme.tertiary,
-          onRefresh: () {
-            BlocProvider.of<ProductBloc>(context).add(FetchProductEvent());
-            return Future.delayed(const Duration(milliseconds: 1));
-          },
-          child: ListView.builder(
-            itemCount: productList.length,
-            itemBuilder: (context, index) {
-              final item = productList[index];
+        body: BlocBuilder<ProductBloc, ProductBlocState>(
+          builder: (context, state) {
+            if (state is ProductBlocInitial) {
+              provider.add(FetchProductEvent());
+            }
+            return RefreshIndicator(
+              color: Theme.of(context).colorScheme.tertiary,
+              onRefresh: () {
+                provider.add(FetchProductEvent());
+                return Future.delayed(const Duration(milliseconds: 1));
+              },
+              child: ListView.builder(
+                itemCount: widget.productList.length,
+                itemBuilder: (context, index) {
+                  final item = widget.productList[index];
 
-              return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: DismissableWidget(
-                    child: ProductTile(product: item),
-                    askForDismiss: () => _askForDismiss(context, item),
-                    onDismiss: () => _handleDismiss(item),
-                  ));
-            },
-          ),
+                  return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: DismissableWidget(
+                        child: ProductTile(product: item),
+                        askForDismiss: () => _askForDismiss(context, item),
+                        onDismiss: () => _handleDismiss(item),
+                      ));
+                },
+              ),
+            );
+          },
         ));
   }
 
@@ -57,6 +70,9 @@ class MenuList extends StatelessWidget {
       false;
 
   void _handleDismiss(Product p) {
-    productList.removeAt(productList.indexOf(p));
+    setState(() {
+      BlocProvider.of<ProductBloc>(context).add(RemoveProductEvent(product: p));
+      // widget.productList.removeAt(widget.productList.indexOf(p));
+    });
   }
 }

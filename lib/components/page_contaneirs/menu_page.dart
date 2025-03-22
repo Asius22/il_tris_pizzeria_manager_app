@@ -45,7 +45,6 @@ class MenuPage extends StatelessWidget {
     );
   }
 
-  // TODO: testare
   Widget _translatorButton(BuildContext context) => ElevatedButton.icon(
         style: const ButtonStyle(
           padding: WidgetStatePropertyAll<EdgeInsetsGeometry>(
