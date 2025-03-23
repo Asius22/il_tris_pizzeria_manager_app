@@ -12,7 +12,7 @@ class MenuAddPage extends StatelessWidget {
         resizeToAvoidBottomInset: false,
         appBar: AppBar(
           title: Text(
-            "Aggiungi $categoria",
+            'Aggiungi $categoria',
             style: TextStyle(
                 color: Theme.of(context).colorScheme.onSecondaryContainer,
                 fontWeight: FontWeight.bold),

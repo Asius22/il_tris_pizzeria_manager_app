@@ -43,14 +43,14 @@ class _CustomNavigationBarState extends State<CustomNavigationBar> {
       items: const [
         BottomNavigationBarItem(
           icon: Icon(Icons.restaurant_menu),
-          label: "Menu",
+          label: 'Menu',
         ),
         BottomNavigationBarItem(
           icon: Icon(Icons.code),
-          label: "Query",
+          label: 'Query',
         ),
         BottomNavigationBarItem(
-            icon: Icon(Icons.calendar_month), label: "Orari"),
+            icon: Icon(Icons.calendar_month), label: 'Orari'),
       ],
       onTap: _onTap,
     );

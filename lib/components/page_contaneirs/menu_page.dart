@@ -19,7 +19,7 @@ class MenuPage extends StatelessWidget {
         children: typeList
             .map<Widget>(
               (categoria) => Padding(
-                padding: EdgeInsets.all(8),
+                padding: const EdgeInsets.all(8),
                 child: FilledButton.tonal(
                     onPressed: () => Navigator.push(
                           context,
@@ -55,6 +55,6 @@ class MenuPage extends StatelessWidget {
           BlocProvider.of<ProductBloc>(context).add(TranslateAllProductEvent());
         },
         icon: const Icon(Icons.translate),
-        label: const Text(" TRADUCI TUTTO "),
+        label: const Text(' TRADUCI TUTTO '),
       );
 }

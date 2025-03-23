@@ -20,12 +20,12 @@ repositories {
 
 dependencies {
     // Use the Kotlin JUnit 5 integration.
-    testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
+    testImplementation('org.jetbrains.kotlin:kotlin-test-junit5')
 
     // Use the JUnit 5 integration.
     testImplementation(libs.junit.jupiter.engine)
 
-    testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+    testRuntimeOnly('org.junit.platform:junit-platform-launcher')
 
     // This dependency is used by the application.
     implementation(libs.guava)
@@ -40,10 +40,10 @@ java {
 
 application {
     // Define the main class for the application.
-    mainClass = "org.example.AppKt"
+    mainClass = 'org.example.AppKt'
 }
 
-tasks.named<Test>("test") {
+tasks.named<Test>('test') {
     // Use JUnit Platform for unit tests.
     useJUnitPlatform()
 }

@@ -23,7 +23,7 @@ class _PriceWidgetState extends State<PriceWidget> {
       child: TextField(
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
-            border: OutlineInputBorder(), label: Text("prezzo")),
+            border: OutlineInputBorder(), label: Text('prezzo')),
         controller: widget.controller,
       ),
     );

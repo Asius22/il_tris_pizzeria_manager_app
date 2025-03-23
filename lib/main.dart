@@ -5,7 +5,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:il_tris_manager/pages/landing_page.dart';
 import 'package:il_tris_manager/pages/menu_bloc_page.dart';
 import 'package:il_tris_manager/pages/orari_page.dart';
-import 'package:il_tris_manager/pages/query_page.dart';
+import 'package:il_tris_manager/pages/lingue_page.dart';
 import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:il_tris_manager/color_schemes.dart';
@@ -20,11 +20,12 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
   await FirebaseAuth.instance.signInWithEmailAndPassword(
-      email: "admin@iltrispizzeria.it", password: "P1zz3ria73!");
+      email: 'admin@iltrispizzeria.it', password: 'P1zz3ria73!');
 
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
+        lazy: false,
         create: (context) => ProductBloc(),
       ),
       BlocProvider(
@@ -50,10 +51,10 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           theme: MaterialTheme(Theme.of(context).textTheme).dark(),
           routes: {
-            MenuBlocPage.routeName: (context) => MenuBlocPage(),
-            OrariPage.routeName: (context) => OrariPage(),
-            QueryPage.routeName: (context) => QueryPage(),
-            LandingPage.routeName: (context) => LandingPage(),
+            MenuBlocPage.routeName: (context) => const MenuBlocPage(),
+            OrariPage.routeName: (context) => const OrariPage(),
+            LinguaPage.routeName: (context) => const LinguaPage(),
+            LandingPage.routeName: (context) => const LandingPage(),
           },
           initialRoute: LandingPage.routeName,
         ),

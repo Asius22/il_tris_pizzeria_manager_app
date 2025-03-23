@@ -13,15 +13,15 @@ class RepositoryDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Text(_testi[action] ?? "Qualcosa è andato storto, premi no"),
+      title: Text(_testi[action] ?? 'Qualcosa è andato storto, premi no'),
       actions: [
         TextButton(
           onPressed: () => Navigator.of(context).pop(false),
-          child: const Text("No"),
+          child: const Text('No'),
         ),
         TextButton(
           onPressed: () => _onYesPressed(context),
-          child: const Text("Si"),
+          child: const Text('Si'),
         ),
       ],
     );
@@ -47,8 +47,8 @@ class RepositoryDialog extends StatelessWidget {
   }
 
   final Map<RepositoryDialogAction, String> _testi = const {
-    RepositoryDialogAction.salva: "Confermi?",
-    RepositoryDialogAction.aggiorna: "Confermi?",
+    RepositoryDialogAction.salva: 'Confermi?',
+    RepositoryDialogAction.aggiorna: 'Confermi?',
     RepositoryDialogAction.elimina: "Sei sicuro di voler eliminare l'elemento?",
   };
 }

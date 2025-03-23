@@ -3,15 +3,15 @@ import 'package:pizzeria_model_package/model/product.dart';
 
 const animationDuration = Duration(milliseconds: 400);
 const List<String> typeList = [
-  "Antipasto",
-  "Pizza",
-  "Panuozzo",
-  "Bibita",
-  "Frittura",
-  "Dolce",
-  "Primo",
-  "Secondo",
-  "Vino"
+  'Antipasto',
+  'Pizza',
+  'Panuozzo',
+  'Bibita',
+  'Frittura',
+  'Dolce',
+  'Primo',
+  'Secondo',
+  'Vino'
 ];
 
 const imageRectRadius = BorderRadius.all(Radius.circular(16.0));

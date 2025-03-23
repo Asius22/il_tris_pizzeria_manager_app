@@ -4,18 +4,18 @@ import 'package:pizzeria_model_package/model/business_hours.dart';
 
 class OrariBody extends StatelessWidget {
   const OrariBody({super.key, required this.calendario});
-  static const String routeName = "Orari";
+  static const String routeName = 'Orari';
 
   final BusinessHours calendario;
 
   static const Map<String, int> ordine = {
-    "lunedì": 0,
-    "martedì": 1,
-    "mercoledì": 2,
-    "giovedì": 3,
-    "venerdì": 4,
-    "sabato": 5,
-    "domenica": 6
+    'lunedì': 0,
+    'martedì': 1,
+    'mercoledì': 2,
+    'giovedì': 3,
+    'venerdì': 4,
+    'sabato': 5,
+    'domenica': 6
   };
 
   @override
@@ -25,13 +25,13 @@ class OrariBody extends StatelessWidget {
         OrariList(
           calendario: calendario,
           giorni: _buildOrari(
-            RegExp(r"[A-Za-z]+"),
+            RegExp(r'[A-Za-z]+'),
           ),
         ), // Giorni settimanali non contengono numeri
         OrariList(
           calendario: calendario,
           giorni: _buildOrari(
-            RegExp(r"\d+"),
+            RegExp(r'\d+'),
           ),
         ), // Le date non contengono lettere
       ],
@@ -39,7 +39,7 @@ class OrariBody extends StatelessWidget {
   }
 
   List<String> _buildOrari(RegExp filtro) {
-    List<String> res = calendario.days
+    final List<String> res = calendario.days
         .where(
           (element) => element.contains(filtro),
         )

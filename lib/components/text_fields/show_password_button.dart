@@ -19,7 +19,7 @@ class _ShowPasswordBtnState extends State<ShowPasswordBtn> {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      overlayColor: const MaterialStatePropertyAll(Colors.transparent),
+      overlayColor: const WidgetStatePropertyAll(Colors.transparent),
       onTap: () {
         setState(() {
           isVisible = !isVisible;

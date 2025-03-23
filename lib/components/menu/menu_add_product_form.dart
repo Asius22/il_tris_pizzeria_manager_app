@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/menu/allergeni_select_list.dart';
-import 'package:il_tris_manager/components/utils/input_field.dart';
+import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:il_tris_manager/lingue.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:pizzeria_model_package/model/product.dart';
 import 'package:sizer/sizer.dart';
@@ -31,7 +30,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
     _descriptionController = TextEditingController();
     _priceControllerList = [
       TextEditingController(
-        text: "0.0",
+        text: '0.0',
       )
     ];
     super.initState();
@@ -51,7 +50,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
   Widget build(BuildContext context) {
     return SafeArea(
       child: Padding(
-        padding: EdgeInsets.all(16),
+        padding: const EdgeInsets.all(16),
         child: SingleChildScrollView(
           child: SizedBox(
             height: 100.h,
@@ -60,9 +59,14 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisSize: MainAxisSize.max,
               children: [
-                InputField(controller: _nameController, label: "NOME"),
-                InputField(
-                    controller: _descriptionController, label: "DESCRIZIONE"),
+                OutlinedTextField(controller: _nameController, label: 'NOME'),
+                OutlinedTextField(
+                  controller: _descriptionController,
+                  label: 'DESCRIZIONE',
+                  allowMultipleLines: true,
+                  inputType: TextInputType.multiline,
+                  inputAction: TextInputAction.newline,
+                ),
                 Wrap(
                   children: _getPriceFields(),
                 ),
@@ -72,12 +76,12 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
                     FilledButton.icon(
                       onPressed: _aggiungiPrezzo,
                       icon: const Icon(Icons.add),
-                      label: const Text("€"),
+                      label: const Text('€'),
                     ),
                     FilledButton.icon(
                       onPressed: _rimuoviPrezzo,
                       icon: const Icon(Icons.remove),
-                      label: const Text("€"),
+                      label: const Text('€'),
                     ),
                   ],
                 ),
@@ -100,7 +104,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
   void _aggiungiPrezzo() {
     if (_priceFields.length < 3) {
       setState(() {
-        final controller = TextEditingController(text: "0.0");
+        final controller = TextEditingController(text: '0.0');
         _priceControllerList.add(controller);
         final c = Container(
           margin: const EdgeInsets.all(8.0),
@@ -108,7 +112,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
           child: TextField(
             keyboardType: TextInputType.number,
             decoration: const InputDecoration(
-                border: OutlineInputBorder(), label: Text("prezzo")),
+                border: OutlineInputBorder(), label: Text('prezzo')),
             controller: controller,
           ),
         );
@@ -135,7 +139,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
         child: TextField(
           keyboardType: TextInputType.number,
           decoration: const InputDecoration(
-              border: OutlineInputBorder(), label: Text("prezzo")),
+              border: OutlineInputBorder(), label: Text('prezzo')),
           controller: _priceControllerList[0],
         ),
       ));
@@ -149,22 +153,22 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
     String nome,
   ) async {
     final translator = GoogleTranslator();
-    Map<String, String> descrizioni = {"it": _descriptionController.text};
+    final Map<String, String> descrizioni = {'it': _descriptionController.text};
     if (descrizione.isNotEmpty) {
       toastification.show(
-          title: Text("Inizo la traduzione..."),
+          title: const Text('Inizo la traduzione...'),
           style: ToastificationStyle.flat,
-          autoCloseDuration: Duration(seconds: 5),
+          autoCloseDuration: const Duration(seconds: 5),
           type: ToastificationType.info);
-      for (String lingua in Lingue.list) {
-        if (!descrizioni.containsKey(lingua)) {
+      for (String lingua in descrizioni.keys) {
+        if (descrizioni[lingua] == '') {
           toastification.show(
-              title: Text("traduco in $lingua..."),
+              title: Text('traduco in $lingua...'),
               style: ToastificationStyle.flat,
-              autoCloseDuration: Duration(seconds: 3),
+              autoCloseDuration: const Duration(seconds: 3),
               type: ToastificationType.info);
           final translatedText =
-              await translator.translate(descrizione, from: "it", to: lingua);
+              await translator.translate(descrizione, from: 'it', to: lingua);
           descrizioni.putIfAbsent(lingua, () => translatedText.text);
         }
       }

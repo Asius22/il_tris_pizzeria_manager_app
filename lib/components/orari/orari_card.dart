@@ -38,7 +38,7 @@ class _OrariCardState extends State<OrariCard> {
     setState(() {
       if (value && _orariLocali.isEmpty) {
         // Aggiungi una fascia oraria di default
-        _orariLocali.add(OpeningHours(
+        _orariLocali.add(const OpeningHours(
           startHour: '08:00',
           endHour: '18:00',
         ));
@@ -72,7 +72,7 @@ class _OrariCardState extends State<OrariCard> {
           '${newStartHour.toString().padLeft(2, '0')}:${newStartMinute.toString().padLeft(2, '0')}';
 
       // End time is start time + 3 hours
-      int newEndHour = (newStartHour + 3) % 24;
+      final int newEndHour = (newStartHour + 3) % 24;
       endHour =
           '${newEndHour.toString().padLeft(2, '0')}:${newStartMinute.toString().padLeft(2, '0')}';
     }
@@ -93,7 +93,8 @@ class _OrariCardState extends State<OrariCard> {
 
   Future<void> _modificaOrario(int index, bool isStartTime) async {
     final OpeningHours fascia = _orariLocali[index];
-    String orarioAttuale = isStartTime ? fascia.startHour : fascia.endHour;
+    final String orarioAttuale =
+        isStartTime ? fascia.startHour : fascia.endHour;
 
     // Parse current time
     final timeParts = orarioAttuale.split(':');
@@ -135,8 +136,8 @@ class _OrariCardState extends State<OrariCard> {
   @override
   Widget build(BuildContext context) {
     final String fasceSummary = _orariLocali
-        .map((fascia) => "${fascia.startHour} - ${fascia.endHour}")
-        .join(", ");
+        .map((fascia) => '${fascia.startHour} - ${fascia.endHour}')
+        .join(', ');
 
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
@@ -181,7 +182,7 @@ class _OrariCardState extends State<OrariCard> {
             leading: const Icon(Icons.add_circle_outline),
             onTap: _aggiungiFasciaOraria,
             trailing: IconButton(
-              icon: Icon(
+              icon: const Icon(
                 Icons.check,
               ),
               onPressed: () => widget.onOrariChanged(_orariLocali),

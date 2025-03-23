@@ -779,7 +779,7 @@ packages:
   pizzeria_model_package:
     dependency: "direct main"
     description:
-      path: "D:\\Progetti Flutter\\pizzeria_model_package"
+      path: "D:\\\\Progetti Flutter\\\\pizzeria_model_package"
       relative: false
     source: path
     version: "0.0.1"

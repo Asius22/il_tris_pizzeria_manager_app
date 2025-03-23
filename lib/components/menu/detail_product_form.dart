@@ -34,7 +34,7 @@ class DetailProductFormState extends State<DetailProductForm> {
     _product = widget.product;
     // crea controllers
     _descrizioneController =
-        TextEditingController(text: _product.descrizioni["it"]);
+        TextEditingController(text: _product.descrizioni['it']);
 
     _controllerNome = TextEditingController(text: _product.nome);
 
@@ -51,13 +51,15 @@ class DetailProductFormState extends State<DetailProductForm> {
     return ListView(
       children: [
         OutlinedTextField(
-          label: "Nome",
+          label: 'Nome',
           controller: _controllerNome,
         ),
         OutlinedTextField(
-          label: "Descrizione",
+          label: 'Descrizione',
           allowMultipleLines: true,
           controller: _descrizioneController,
+          inputType: TextInputType.multiline,
+          inputAction: TextInputAction.newline,
         ),
         Row(
           children: _getPriceWidgets(),
@@ -67,12 +69,12 @@ class DetailProductFormState extends State<DetailProductForm> {
             FilledButton.icon(
               onPressed: _aggiungiPrezzo,
               icon: const Icon(Icons.add),
-              label: const Text("€"),
+              label: const Text('€'),
             ),
             FilledButton.icon(
               onPressed: _rimuoviPrezzo,
               icon: const Icon(Icons.remove),
-              label: const Text("€"),
+              label: const Text('€'),
             ),
           ],
         ),
@@ -89,7 +91,7 @@ class DetailProductFormState extends State<DetailProductForm> {
   List<Widget> _getPriceWidgets() {
     if (_priceWidgetList.isEmpty) {
       for (double d in widget.product.prezzi) {
-        final controller = TextEditingController(text: "$d");
+        final controller = TextEditingController(text: '$d');
         _priceControllerList.add(controller);
 
         _priceWidgetList.add(PriceWidget(controller: controller));
@@ -101,7 +103,7 @@ class DetailProductFormState extends State<DetailProductForm> {
   void _aggiungiPrezzo() {
     if (_priceWidgetList.length < 3) {
       setState(() {
-        final controller = TextEditingController(text: "0.0");
+        final controller = TextEditingController(text: '0.0');
         _priceControllerList.add(controller);
 
         _priceWidgetList.add(PriceWidget(controller: controller));
@@ -121,9 +123,9 @@ class DetailProductFormState extends State<DetailProductForm> {
 
   ///legge i controller dei vari prezzi e crea una lista di valori
   List<double> _getPricesList() {
-    List<double> res = [];
+    final List<double> res = [];
     for (TextEditingController c in _priceControllerList) {
-      double d = double.parse(c.text.replaceAll(",", "."));
+      final double d = double.parse(c.text.replaceAll(',', '.'));
       if (d > 0) {
         res.add(d);
       }
@@ -135,7 +137,7 @@ class DetailProductFormState extends State<DetailProductForm> {
       nome: _controllerNome.text,
       descrizioni: widget.product.descrizioni
         ..update(
-          "it",
+          'it',
           (value) => _descrizioneController.text,
         ),
       type: widget.product.type,
@@ -143,7 +145,7 @@ class DetailProductFormState extends State<DetailProductForm> {
       prezzi: _getPricesList());
 
   void _saveProductUpdate(BuildContext context) {
-    Product p = productUpdated;
+    final Product p = productUpdated;
     BlocProvider.of<ProductBloc>(context)
         .add(UpdateProductEvent(newProduct: p, key: p.nome));
     Navigator.of(context).pop();

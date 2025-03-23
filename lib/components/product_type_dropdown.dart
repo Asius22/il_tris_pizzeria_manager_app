@@ -26,7 +26,7 @@ class _ProductTypeDropdownState extends State<ProductTypeDropdown> {
       enableFilter: false,
       dropdownMenuEntries: dropdownMenuEntries,
       controller: widget.controller,
-      initialSelection: "Pizza",
+      initialSelection: 'Pizza',
     );
   }
 }

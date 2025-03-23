@@ -2,7 +2,7 @@
 // ignore_for_file: lines_longer_than_80_chars, avoid_classes_with_only_static_members
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
 
 /// Default [FirebaseOptions] for use with your Firebase apps.
 ///
@@ -54,7 +54,8 @@ class DefaultFirebaseOptions {
     appId: '1:314229576163:android:ad20ebe6a390e1e34690d6',
     messagingSenderId: '314229576163',
     projectId: 'il-tris-pizzeria-ds',
-    databaseURL: 'https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'il-tris-pizzeria-ds.appspot.com',
   );
 
@@ -63,10 +64,11 @@ class DefaultFirebaseOptions {
     appId: '1:314229576163:ios:dc2811e67d92fb844690d6',
     messagingSenderId: '314229576163',
     projectId: 'il-tris-pizzeria-ds',
-    databaseURL: 'https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app',
+    databaseURL:
+        'https://il-tris-pizzeria-ds-default-rtdb.europe-west1.firebasedatabase.app',
     storageBucket: 'il-tris-pizzeria-ds.appspot.com',
-    iosClientId: '314229576163-r3ru2c86ve9fa3k3grullnj6ijl5c3nl.apps.googleusercontent.com',
+    iosClientId:
+        '314229576163-r3ru2c86ve9fa3k3grullnj6ijl5c3nl.apps.googleusercontent.com',
     iosBundleId: 'com.example.ilTrisManager',
   );
-
 }

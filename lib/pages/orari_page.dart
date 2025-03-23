@@ -39,19 +39,20 @@ class OrariPage extends StatelessWidget {
                 if (context.mounted) {
                   BlocProvider.of<BusinesshoursBloc>(context).add(
                       AddBusinessHoursEvent(
-                          DateFormat("dd-MM-yyyy").format(date), [
-                    OpeningHours(startHour: "18:00", endHour: "23:55")
+                          DateFormat('dd-MM-yyyy').format(date), [
+                    const OpeningHours(startHour: '18:00', endHour: '23:55')
                   ]));
                 } else {
                   toastification.show(
-                      title: Text("Impossibile salvare, riprova più tardi"),
-                      autoCloseDuration: Duration(seconds: 5),
+                      title:
+                          const Text('Impossibile salvare, riprova più tardi'),
+                      autoCloseDuration: const Duration(seconds: 5),
                       style: ToastificationStyle.flatColored,
                       type: ToastificationType.error);
                 }
               }
             },
-            child: Icon(Icons.add),
+            child: const Icon(Icons.add),
           ),
           body: BlocBuilder<BusinesshoursBloc, BusinesshoursState>(
             builder: (context, state) {
@@ -62,7 +63,7 @@ class OrariPage extends StatelessWidget {
               } else if (state is InitializingBusinesshoursState) {
                 return const WaitingPage();
               } else {
-                BusinessHours giorni =
+                final BusinessHours giorni =
                     (state as InitializedBusinesshoursState).businessHours;
 
                 return OrariBody(

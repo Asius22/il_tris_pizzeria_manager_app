@@ -20,7 +20,7 @@ class OrariList extends StatelessWidget {
           giorno: key,
           orari: calendario.hoursMap[key]!,
           onOrariChanged: (p0) {
-            log("$p0 cambiato");
+            log('$p0 cambiato');
             BlocProvider.of<BusinesshoursBloc>(context)
                 .add(UpdateBusinessHoursEvent(key, p0));
           },

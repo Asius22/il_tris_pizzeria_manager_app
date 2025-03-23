@@ -7,7 +7,7 @@ import 'package:il_tris_manager/pages/waiting_page.dart';
 class MenuBlocPage extends StatelessWidget {
   const MenuBlocPage({super.key});
 
-  static const String routeName = "menu";
+  static const String routeName = 'menu';
 
   @override
   Widget build(BuildContext context) {

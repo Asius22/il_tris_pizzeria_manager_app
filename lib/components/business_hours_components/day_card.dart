@@ -37,8 +37,9 @@ class _DayCardState extends State<DayCard> {
 
   @override
   Widget build(BuildContext context) {
-    double width = MediaQuery.of(context).size.width;
-    BusinesshoursBloc provider = BlocProvider.of<BusinesshoursBloc>(context);
+    final double width = MediaQuery.of(context).size.width;
+    final BusinesshoursBloc provider =
+        BlocProvider.of<BusinesshoursBloc>(context);
     return Padding(
       padding: const EdgeInsets.all(8),
       child: Column(
@@ -58,21 +59,21 @@ class _DayCardState extends State<DayCard> {
                   chiusoValue = !chiusoValue;
 
                   if (orari.isEmpty && !chiusoValue) {
-                    orari.add(
-                        OpeningHours(startHour: "00:00", endHour: "00:01"));
+                    orari.add(const OpeningHours(
+                        startHour: '00:00', endHour: '00:01'));
                   } else {
                     provider.add(UpdateBusinessHoursEvent(widget.giorno, []));
                   }
                 }),
               ),
               const Text(
-                "Chiuso",
+                'Chiuso',
                 style: TextStyle(fontSize: 18),
               ),
               const Expanded(
                 child: SizedBox(),
               ),
-              widget.giorno.contains("2")
+              widget.giorno.contains('2')
                   ? IconButton(
                       onPressed: () {
                         provider.add(RemoveBusinessHoursEvent(widget.giorno));
@@ -86,26 +87,26 @@ class _DayCardState extends State<DayCard> {
                   ...getColumnElements(width),
                   FilledButton(
                       onPressed: () async {
-                        bool? conferma = await showAdaptiveDialog<bool?>(
+                        final bool? conferma = await showAdaptiveDialog<bool?>(
                           context: context,
                           builder: (context) => AlertDialog(
-                              title: const Text("Vuoi salvare questi orari?"),
+                              title: const Text('Vuoi salvare questi orari?'),
                               actions: [
                                 TextButton.icon(
                                     onPressed: () =>
                                         Navigator.of(context).pop(true),
                                     icon: const Icon(Icons.check),
-                                    label: const Text("SI")),
+                                    label: const Text('SI')),
                                 TextButton.icon(
                                     onPressed: () =>
                                         Navigator.of(context).pop(false),
                                     icon: const Icon(Icons.close),
-                                    label: const Text("NO")),
+                                    label: const Text('NO')),
                               ]),
                         );
                         if (conferma != null && conferma) {
-                          log("[DEBUG] SALVA");
-                          List<OpeningHours> res = [];
+                          log('[DEBUG] SALVA');
+                          final List<OpeningHours> res = [];
                           for (int i = 0; i < _controllerList.length; i += 2) {
                             final tmp = OpeningHours(
                                 startHour: _controllerList[i].text,
@@ -115,10 +116,10 @@ class _DayCardState extends State<DayCard> {
                           provider.add(
                               UpdateBusinessHoursEvent(widget.giorno, res));
                         } else {
-                          log("[DEBUG] NON SALVARE");
+                          log('[DEBUG] NON SALVARE');
                         }
                       },
-                      child: const Text("SALVA"))
+                      child: const Text('SALVA'))
                 ])
               : const SizedBox()
         ],
@@ -127,7 +128,7 @@ class _DayCardState extends State<DayCard> {
   }
 
   List<Widget> getColumnElements(double width) {
-    List<Widget> res = [];
+    final List<Widget> res = [];
 
     for (int i = 0; i < orari.length; i++) {
       res.add(hoursFieldPair(width, i, orari[i]));
@@ -137,7 +138,7 @@ class _DayCardState extends State<DayCard> {
   }
 
   Widget hoursFieldPair(double width, int index, OpeningHours orario) {
-    double fieldWidth = width * 0.8;
+    final double fieldWidth = width * 0.8;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
@@ -145,7 +146,7 @@ class _DayCardState extends State<DayCard> {
           width: fieldWidth,
           child: OutlinedTextField(
             controller: _getNewEditingController(ora: orario.startHour),
-            label: "ora apertura",
+            label: 'ora apertura',
           ),
         ),
         Row(
@@ -154,15 +155,15 @@ class _DayCardState extends State<DayCard> {
               width: fieldWidth,
               child: OutlinedTextField(
                 controller: _getNewEditingController(ora: orario.endHour),
-                label: "ora chiusura",
+                label: 'ora chiusura',
               ),
             ),
             IconButton(
                 onPressed: () {
                   setState(() {
                     if (index == 0) {
-                      orari.add(
-                          OpeningHours(startHour: "00:00", endHour: "00:01"));
+                      orari.add(const OpeningHours(
+                          startHour: '00:00', endHour: '00:01'));
                     } else {
                       orari.remove(orario);
                     }
@@ -177,7 +178,7 @@ class _DayCardState extends State<DayCard> {
   }
 
   TextEditingController _getNewEditingController({String? ora}) {
-    _controllerList.add(TextEditingController(text: ora ?? "00:00"));
+    _controllerList.add(TextEditingController(text: ora ?? '00:00'));
     return _controllerList.last;
   }
 }
