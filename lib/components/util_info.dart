@@ -11,7 +11,8 @@ const List<String> typeList = [
   'Dolce',
   'Primo',
   'Secondo',
-  'Vino'
+  'Vino Rosso',
+  'Vino Bianco',
 ];
 
 const imageRectRadius = BorderRadius.all(Radius.circular(16.0));

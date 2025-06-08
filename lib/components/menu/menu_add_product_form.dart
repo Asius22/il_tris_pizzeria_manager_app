@@ -11,7 +11,7 @@ import 'package:translator/translator.dart';
 class MenuAddProductForm extends StatefulWidget {
   const MenuAddProductForm({super.key, required this.type});
 
-  final String type;
+  final ProductType type;
 
   @override
   State<MenuAddProductForm> createState() => _MenuAddProductFormState();
@@ -179,7 +179,7 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
       BlocProvider.of<ProductBloc>(context).add(
         SaveProductEvent(
           product: Product(
-              nome: nome,
+              nome: nome.capitalize(),
               descrizioni: descrizioni,
               type: widget.type,
               prezzi: _priceControllerList
@@ -193,5 +193,12 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
 
       Navigator.of(context).pop();
     }
+  }
+}
+
+extension StringExtension on String {
+  String capitalize() {
+    if (isEmpty) return this;
+    return this[0].toUpperCase() + substring(1);
   }
 }

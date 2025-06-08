@@ -2,11 +2,12 @@ import 'package:animations/animations.dart';
 import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/menu/menu_add_page.dart';
 import 'package:il_tris_manager/components/util_info.dart';
+import 'package:pizzeria_model_package/model/product.dart';
 
 class MenuAddButton extends StatelessWidget {
   const MenuAddButton({super.key, required this.productType});
 
-  final String productType;
+  final ProductType productType;
 
   @override
   Widget build(BuildContext context) {

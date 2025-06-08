@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:il_tris_manager/components/menu/menu_list.dart';
-import 'package:il_tris_manager/components/util_info.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:pizzeria_model_package/model/product.dart';
 import 'package:sizer/sizer.dart';
@@ -13,10 +12,14 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final List<ProductType> types = ProductType.values.map((e) => e).toList()
+      ..sort(
+        (a, b) => a.name.compareTo(b.name),
+      );
     return SizedBox(
       width: 100.w,
       child: ListView(
-        children: typeList
+        children: types
             .map<Widget>(
               (categoria) => Padding(
                 padding: const EdgeInsets.all(8),
@@ -26,21 +29,24 @@ class MenuPage extends StatelessWidget {
                           MaterialPageRoute(
                             builder: (context) => MenuList(
                               productType: categoria,
-                              productList: productList
-                                  .where(
-                                    (element) => element.type == categoria,
-                                  )
-                                  .toList(),
                             ),
                           ),
                         ),
-                    child: Text(categoria)),
+                    child: Text(categoria.name.toUpperCase())),
               ),
             )
             .toList()
-          ..add(
+          ..addAll([
             _translatorButton(context),
-          ),
+            ElevatedButton(
+                onPressed: () {
+                  for (Product p in productList) {
+                    BlocProvider.of<ProductBloc>(context)
+                        .add(SaveProductEvent(product: p));
+                  }
+                },
+                child: const Text('Scrivi Tutto'))
+          ]),
       ),
     );
   }

@@ -13,8 +13,11 @@ class OrariList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
-      itemCount: giorni.length,
+      itemCount: giorni.length + 1,
       itemBuilder: (context, index) {
+        if (index == giorni.length) {
+          return const SizedBox(height: 200);
+        }
         final String key = giorni[index];
         return OrariCard(
           giorno: key,

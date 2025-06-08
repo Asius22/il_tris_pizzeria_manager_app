@@ -340,9 +340,9 @@ class MaterialTheme {
         brightness: colorScheme.brightness,
         colorScheme: colorScheme,
         textTheme: textTheme.apply(
-          bodyColor: colorScheme.onSurface,
-          displayColor: colorScheme.onSurface,
-        ),
+            bodyColor: colorScheme.onSurface,
+            displayColor: colorScheme.onSurface,
+            fontFamily: 'Aptos'),
         scaffoldBackgroundColor: colorScheme.surface,
         canvasColor: colorScheme.surface,
       );

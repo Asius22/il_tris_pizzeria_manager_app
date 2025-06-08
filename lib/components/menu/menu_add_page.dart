@@ -1,10 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:il_tris_manager/components/menu/menu_add_product_form.dart';
+import 'package:pizzeria_model_package/model/product.dart';
 
 class MenuAddPage extends StatelessWidget {
   const MenuAddPage({super.key, required this.categoria});
 
-  final String categoria;
+  final ProductType categoria;
 
   @override
   Widget build(BuildContext context) {

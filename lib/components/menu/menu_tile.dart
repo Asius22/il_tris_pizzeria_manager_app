@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:pizzeria_model_package/model/product.dart';
 
 class MenuTile extends StatelessWidget {
@@ -28,6 +30,14 @@ class MenuTile extends StatelessWidget {
               product.nome,
               style: textTheme.bodyLarge,
             ),
+            Switch(
+              value: product.active,
+              onChanged: (value) {
+                BlocProvider.of<ProductBloc>(context).add(UpdateProductEvent(
+                    newProduct: product.copyWith(active: value),
+                    key: product.nome));
+              },
+            )
           ],
         ),
       ),

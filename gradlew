@@ -153,7 +153,7 @@ if ! '$cygwin' && ! '$darwin' && ! '$nonstop' ; then
             warn 'Could not query maximum file descriptor limit'
     esac
     case $MAX_FD in  #(
-      '' | soft) :;; #(
+      ' | soft) :;; #(
       *)
         # In POSIX sh, ulimit -n is undefined. That's why the result is checked to see if it worked.
         # shellcheck disable=SC2039,SC3045
@@ -203,7 +203,7 @@ fi
 
 
 # Add default JVM options here. You can also use JAVA_OPTS and GRADLE_OPTS to pass JVM options to this script.
-DEFAULT_JVM_OPTS=''-Xmx64m' '-Xms64m''
+DEFAULT_JVM_OPTS='-Xmx64m' '-Xms64m'
 
 # Collect all arguments for the java command:
 #   * DEFAULT_JVM_OPTS, JAVA_OPTS, JAVA_OPTS, and optsEnvironmentVar are not allowed to contain shell fragments,
@@ -247,6 +247,6 @@ eval 'set -- $(
         xargs -n1 |
         sed ' s~[^-[:alnum:]+,./:=@_]~\\&~g; ' |
         tr '\n' ' '
-    )' ''$@''
+    )' '$@'
 
 exec '$JAVACMD' '$@'
