@@ -7,12 +7,20 @@ import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.da
 import 'package:pizzeria_model_package/model/business_hours.dart';
 
 class OrariList extends StatelessWidget {
-  const OrariList({super.key, required this.calendario, required this.giorni});
+  const OrariList({
+    super.key,
+    required this.storageKey,
+    required this.calendario,
+    required this.giorni,
+  });
+
+  final PageStorageKey<String> storageKey;
   final BusinessHours calendario;
   final List<String> giorni;
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
+      key: storageKey,
       itemCount: giorni.length + 1,
       itemBuilder: (context, index) {
         if (index == giorni.length) {

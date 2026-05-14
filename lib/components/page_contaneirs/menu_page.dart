@@ -20,37 +20,55 @@ class MenuPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
     return SizedBox(
       width: 100.w,
       child: ListView(
-        children: _types
-            .map<Widget>(
-              (categoria) => Padding(
-                padding: const EdgeInsets.all(8),
-                child: FilledButton.tonal(
-                    onPressed: () => Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MenuList(
-                              productType: categoria,
-                            ),
-                          ),
-                        ),
-                    child: Text(categoria.name.toUpperCase())),
-              ),
-            )
-            .toList()
-          ..addAll([
-            _translatorButton(context),
-            ElevatedButton(
-                onPressed: () {
-                  for (Product p in productList) {
-                    BlocProvider.of<ProductBloc>(context)
-                        .add(SaveProductEvent(product: p));
-                  }
-                },
-                child: const Text('Scrivi Tutto'))
-          ]),
+        padding: const EdgeInsets.all(16),
+        children: [
+          Text('Menu', style: textTheme.headlineMedium),
+          const SizedBox(height: 4),
+          Text(
+            'Seleziona una categoria da modificare',
+            style: textTheme.bodyLarge?.copyWith(
+              color: Theme.of(context).colorScheme.onSurfaceVariant,
+            ),
+          ),
+          const SizedBox(height: 16),
+          LayoutBuilder(
+            builder: (context, constraints) {
+              final columns = constraints.maxWidth >= 720 ? 3 : 2;
+
+              return GridView.builder(
+                shrinkWrap: true,
+                physics: const NeverScrollableScrollPhysics(),
+                itemCount: _types.length,
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: columns,
+                  crossAxisSpacing: 12,
+                  mainAxisSpacing: 12,
+                  mainAxisExtent: 72,
+                ),
+                itemBuilder: (context, index) =>
+                    _CategoryButton(categoria: _types[index]),
+              );
+            },
+          ),
+          const SizedBox(height: 16),
+          _translatorButton(context),
+          const SizedBox(height: 8),
+          OutlinedButton.icon(
+            onPressed: () {
+              for (Product p in productList) {
+                BlocProvider.of<ProductBloc>(context)
+                    .add(SaveProductEvent(product: p));
+              }
+            },
+            icon: const Icon(Icons.cloud_upload_outlined),
+            label: const Text('Scrivi tutto'),
+          ),
+        ],
       ),
     );
   }
@@ -72,4 +90,34 @@ class MenuPage extends StatelessWidget {
         icon: const Icon(Icons.translate),
         label: const Text(' TRADUCI TUTTO '),
       );
+}
+
+class _CategoryButton extends StatelessWidget {
+  const _CategoryButton({required this.categoria});
+
+  final ProductType categoria;
+
+  @override
+  Widget build(BuildContext context) {
+    final colorScheme = Theme.of(context).colorScheme;
+
+    return FilledButton.tonalIcon(
+      onPressed: () => Navigator.push(
+        context,
+        MaterialPageRoute(
+          builder: (context) => MenuList(productType: categoria),
+        ),
+      ),
+      icon: Icon(
+        Icons.restaurant_menu_outlined,
+        color: colorScheme.onSecondaryContainer,
+      ),
+      label: Text(
+        categoria.name.toUpperCase(),
+        maxLines: 2,
+        overflow: TextOverflow.ellipsis,
+        textAlign: TextAlign.center,
+      ),
+    );
+  }
 }

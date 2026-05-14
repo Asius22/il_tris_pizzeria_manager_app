@@ -142,6 +142,7 @@ class _OrariCardState extends State<OrariCard> {
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       child: ExpansionTile(
+        key: PageStorageKey<String>('orari-card-${widget.giorno}'),
         title: Row(
           children: [
             Text(widget.giorno),

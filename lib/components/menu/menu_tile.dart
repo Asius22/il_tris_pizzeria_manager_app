@@ -13,32 +13,60 @@ class MenuTile extends StatelessWidget {
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
     final colorScheme = Theme.of(context).colorScheme;
-    final containerColor = colorScheme.secondaryContainer;
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16.0, vertical: 16.0),
-      decoration: BoxDecoration(
-        borderRadius: const BorderRadius.all(Radius.circular(8.0)),
-        color: containerColor,
+    final price = product.prezzi.isEmpty
+        ? null
+        : '\u20AC ${product.prezzi.first.toStringAsFixed(2)}';
+
+    return Material(
+      color: colorScheme.surfaceContainer,
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadius.circular(8),
+        side: BorderSide(color: colorScheme.outlineVariant),
       ),
+      clipBehavior: Clip.antiAlias,
       child: InkWell(
         onTap: onTap,
-        child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              product.nome,
-              style: textTheme.bodyLarge,
-            ),
-            Switch(
-              value: product.active,
-              onChanged: (value) {
-                BlocProvider.of<ProductBloc>(context).add(UpdateProductEvent(
-                    newProduct: product.copyWith(active: value),
-                    key: product.nome));
-              },
-            )
-          ],
+        child: Padding(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text(
+                      product.nome,
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                      style: textTheme.titleMedium,
+                    ),
+                    if (price != null) ...[
+                      const SizedBox(height: 4),
+                      Text(
+                        price,
+                        style: textTheme.bodyMedium?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    ],
+                  ],
+                ),
+              ),
+              const SizedBox(width: 12),
+              Switch(
+                value: product.active,
+                onChanged: (value) {
+                  context.read<ProductBloc>().add(
+                        UpdateProductEvent(
+                          newProduct: product.copyWith(active: value),
+                          key: product.nome,
+                        ),
+                      );
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

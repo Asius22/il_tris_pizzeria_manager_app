@@ -1,45 +1,80 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:il_tris_manager/components/orari/orari_list.dart';
+import 'package:il_tris_manager/pages/waiting_page.dart';
+import 'package:pizzeria_model_package/blocs/businesshours/businesshours_bloc.dart';
 import 'package:pizzeria_model_package/model/business_hours.dart';
 
 class OrariBody extends StatelessWidget {
-  const OrariBody({super.key, required this.calendario});
+  const OrariBody({
+    super.key,
+    required this.controller,
+    required this.onPageChanged,
+  });
   static const String routeName = 'Orari';
 
-  final BusinessHours calendario;
+  final PageController controller;
+  final ValueChanged<int> onPageChanged;
 
-  static const Map<String, int> ordine = {
-    'lunedì': 0,
-    'martedì': 1,
-    'mercoledì': 2,
-    'giovedì': 3,
-    'venerdì': 4,
+  @override
+  Widget build(BuildContext context) {
+    return PageView(
+      controller: controller,
+      onPageChanged: onPageChanged,
+      children: const [
+        _OrariTab(
+          storageKey: PageStorageKey<String>('orari-settimanali'),
+          filtro: r'[A-Za-z]+',
+        ),
+        _OrariTab(
+          storageKey: PageStorageKey<String>('orari-speciali'),
+          filtro: r'\d+',
+        ),
+      ],
+    );
+  }
+}
+
+class _OrariTab extends StatelessWidget {
+  const _OrariTab({
+    required this.storageKey,
+    required this.filtro,
+  });
+
+  final PageStorageKey<String> storageKey;
+  final String filtro;
+
+  static const Map<String, int> _ordine = {
+    'lunedi': 0,
+    'martedi': 1,
+    'mercoledi': 2,
+    'giovedi': 3,
+    'venerdi': 4,
     'sabato': 5,
-    'domenica': 6
+    'domenica': 6,
   };
 
   @override
   Widget build(BuildContext context) {
-    return TabBarView(
-      children: [
-        OrariList(
+    return BlocBuilder<BusinesshoursBloc, BusinesshoursState>(
+      builder: (context, state) {
+        if (state is! InitializedBusinesshoursState) {
+          return const WaitingPage();
+        }
+
+        final calendario = state.businessHours;
+
+        return OrariList(
+          storageKey: storageKey,
           calendario: calendario,
-          giorni: _buildOrari(
-            RegExp(r'[A-Za-z]+'),
-          ),
-        ), // Giorni settimanali non contengono numeri
-        OrariList(
-          calendario: calendario,
-          giorni: _buildOrari(
-            RegExp(r'\d+'),
-          ),
-        ), // Le date non contengono lettere
-      ],
+          giorni: _buildOrari(calendario, RegExp(filtro)),
+        );
+      },
     );
   }
 
-  List<String> _buildOrari(RegExp filtro) {
-    final List<String> res = calendario.days
+  List<String> _buildOrari(BusinessHours calendario, RegExp filtro) {
+    final res = calendario.days
         .where(
           (element) => element.contains(filtro),
         )
@@ -48,17 +83,31 @@ class OrariBody extends StatelessWidget {
     return res
       ..sort(
         (a, b) {
-          if (ordine.containsKey(a)) {
-            // se [a] è presente ma b no allora [b] deve stare dopo, altrimenti dipende dal loro peso
-            if (ordine.containsKey(b)) {
-              return ordine[a]! - ordine[b]!;
-            } else {
-              return -1;
-            }
+          final aOrder = _ordine[_normalizeDay(a)];
+          final bOrder = _ordine[_normalizeDay(b)];
+
+          if (aOrder == null && bOrder == null) {
+            return a.compareTo(b);
           }
 
-          return -1;
+          if (aOrder == null) {
+            return 1;
+          }
+
+          if (bOrder == null) {
+            return -1;
+          }
+
+          return aOrder - bOrder;
         },
       );
   }
+
+  String _normalizeDay(String day) => day
+      .toLowerCase()
+      .replaceAll('\u00ec', 'i')
+      .replaceAll('\u00ed', 'i')
+      .replaceAll('\u00c3\u00ac', 'i')
+      .replaceAll('\u00e8', 'e')
+      .replaceAll('\u00e9', 'e');
 }
