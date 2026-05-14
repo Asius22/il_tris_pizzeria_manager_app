@@ -48,7 +48,7 @@ class DetailProductFormState extends State<DetailProductForm> {
 
   @override
   Widget build(BuildContext context) {
-    return ListView(
+    return Column(
       children: [
         OutlinedTextField(
           label: 'Nome',

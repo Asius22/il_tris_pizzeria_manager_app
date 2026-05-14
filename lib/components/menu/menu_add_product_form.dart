@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:google_mlkit_translation/google_mlkit_translation.dart';
+import 'package:il_tris_manager/blocs/translator_bloc.dart';
 import 'package:il_tris_manager/components/menu/allergeni_select_list.dart';
 import 'package:il_tris_manager/components/text_fields/outlined_textfield.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,7 +8,6 @@ import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:pizzeria_model_package/model/product.dart';
 import 'package:sizer/sizer.dart';
 import 'package:toastification/toastification.dart';
-import 'package:translator/translator.dart';
 
 class MenuAddProductForm extends StatefulWidget {
   const MenuAddProductForm({super.key, required this.type});
@@ -152,45 +153,34 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
     String descrizione,
     String nome,
   ) async {
-    final translator = GoogleTranslator();
-    final Map<String, String> descrizioni = {'it': _descriptionController.text};
-    if (descrizione.isNotEmpty) {
-      toastification.show(
-          title: const Text('Inizo la traduzione...'),
-          style: ToastificationStyle.flat,
-          autoCloseDuration: const Duration(seconds: 5),
-          type: ToastificationType.info);
-      for (String lingua in descrizioni.keys) {
-        if (descrizioni[lingua] == '') {
-          toastification.show(
-              title: Text('traduco in $lingua...'),
-              style: ToastificationStyle.flat,
-              autoCloseDuration: const Duration(seconds: 3),
-              type: ToastificationType.info);
-          final translatedText =
-              await translator.translate(descrizione, from: 'it', to: lingua);
-          descrizioni.putIfAbsent(lingua, () => translatedText.text);
-        }
-      }
-      toastification.dismissAll();
+    final p = Product(
+        nome: nome.capitalize(),
+        descrizioni: {'it': descrizione},
+        type: widget.type,
+        prezzi: _priceControllerList
+            .map(
+              (e) => double.tryParse(e.text) ?? 0.0,
+            )
+            .toList(),
+        allergeni: allergeniController.allergeniList);
+    toastification.show(
+        title: const Text('Inizo la traduzione...'),
+        style: ToastificationStyle.flat,
+        autoCloseDuration: const Duration(seconds: 5),
+        type: ToastificationType.info);
+    for (String l in BlocProvider.of<ProductBloc>(context).lingue
+      ..remove('it')) {
+      BlocProvider.of<TranslatorBloc>(context).add(TranslateProductsEvent(
+          [p],
+          l,
+          OnDeviceTranslator(
+            sourceLanguage: TranslateLanguage.italian,
+            targetLanguage: TranslateLanguage.values
+                .firstWhere((element) => element.bcpCode == l),
+          )));
     }
 
     if (context.mounted) {
-      BlocProvider.of<ProductBloc>(context).add(
-        SaveProductEvent(
-          product: Product(
-              nome: nome.capitalize(),
-              descrizioni: descrizioni,
-              type: widget.type,
-              prezzi: _priceControllerList
-                  .map(
-                    (e) => double.tryParse(e.text) ?? 0.0,
-                  )
-                  .toList(),
-              allergeni: allergeniController.allergeniList),
-        ),
-      );
-
       Navigator.of(context).pop();
     }
   }

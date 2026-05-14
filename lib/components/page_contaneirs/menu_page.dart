@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:il_tris_manager/blocs/translator_bloc.dart' as translator;
 import 'package:il_tris_manager/components/menu/menu_list.dart';
 import 'package:pizzeria_model_package/blocs/product/product_bloc.dart';
 import 'package:pizzeria_model_package/model/product.dart';
@@ -58,7 +59,12 @@ class MenuPage extends StatelessWidget {
           ),
         ),
         onPressed: () {
-          BlocProvider.of<ProductBloc>(context).add(TranslateAllProductEvent());
+          BlocProvider.of<translator.TranslatorBloc>(context).add(
+            translator.TranslateAllProductEvent(
+              BlocProvider.of<ProductBloc>(context).lingue.toList(),
+              productList,
+            ),
+          );
         },
         icon: const Icon(Icons.translate),
         label: const Text(' TRADUCI TUTTO '),

@@ -22,7 +22,8 @@ class LinguaPage extends StatelessWidget {
           } else if (state is ProductBlocFetching) {
             return const WaitingPage();
           }
-          return const NewLinguaForm();
+          return NewLinguaForm(
+              products: (state as ProductBlocFetched).products);
         },
       ),
     );

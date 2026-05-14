@@ -21,12 +21,12 @@ class MenuAddButton extends StatelessWidget {
         ),
       ),
       closedBuilder: (context, action) => Padding(
-        padding: const EdgeInsets.all(4.0),
+        padding: const EdgeInsets.all(0.0),
         child: IconButton(
           onPressed: action,
           icon: Icon(
             Icons.add_outlined,
-            size: 32,
+            size: 24,
             color: Theme.of(context).colorScheme.primary,
           ),
         ),
