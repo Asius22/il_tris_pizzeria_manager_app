@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
 
 class DismissableWidget extends StatelessWidget {
-  const DismissableWidget(
-      {super.key, required this.child, this.askForDismiss, this.onDismiss});
+  const DismissableWidget({
+    super.key,
+    required this.child,
+    required this.dismissibleKey,
+    this.askForDismiss,
+    this.onDismiss,
+  });
+
   final Widget child;
+  final Key dismissibleKey;
   final Function? askForDismiss;
   final Function? onDismiss;
   @override
@@ -28,7 +35,7 @@ class DismissableWidget extends StatelessWidget {
           ),
         ),
       ),
-      key: Key('${child.hashCode}'),
+      key: dismissibleKey,
       child: child,
     );
   }

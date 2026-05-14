@@ -17,7 +17,6 @@ class LinguaPage extends StatelessWidget {
       body: BlocBuilder<ProductBloc, ProductBlocState>(
         builder: (context, state) {
           if (state is ProductBlocInitial) {
-            BlocProvider.of<ProductBloc>(context).add(FetchProductEvent());
             return const WaitingPage();
           } else if (state is ProductBlocFetching) {
             return const WaitingPage();

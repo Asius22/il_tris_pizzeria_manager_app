@@ -1,19 +1,8 @@
 import 'package:flutter/material.dart';
 
-class PriceWidget extends StatefulWidget {
+class PriceWidget extends StatelessWidget {
   const PriceWidget({super.key, required this.controller});
   final TextEditingController controller;
-
-  @override
-  State<PriceWidget> createState() => _PriceWidgetState();
-}
-
-class _PriceWidgetState extends State<PriceWidget> {
-  @override
-  void dispose() {
-    widget.controller.dispose();
-    super.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +13,7 @@ class _PriceWidgetState extends State<PriceWidget> {
         keyboardType: TextInputType.number,
         decoration: const InputDecoration(
             border: OutlineInputBorder(), label: Text('prezzo')),
-        controller: widget.controller,
+        controller: controller,
       ),
     );
   }

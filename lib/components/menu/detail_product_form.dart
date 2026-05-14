@@ -17,7 +17,6 @@ class DetailProductForm extends StatefulWidget {
 class DetailProductFormState extends State<DetailProductForm> {
   late final TextEditingController _descrizioneController;
   late final TextEditingController _controllerNome;
-  final List<Widget> _priceWidgetList = [];
   late Product _product;
   final List<TextEditingController> _priceControllerList = [];
   late final AllergeniSelectList allergeniWidget;
@@ -37,12 +36,20 @@ class DetailProductFormState extends State<DetailProductForm> {
         TextEditingController(text: _product.descrizioni['it']);
 
     _controllerNome = TextEditingController(text: _product.nome);
+    for (double price in widget.product.prezzi) {
+      _priceControllerList.add(TextEditingController(text: '$price'));
+    }
 
     super.initState();
   }
 
   @override
   void dispose() {
+    _descrizioneController.dispose();
+    _controllerNome.dispose();
+    for (final controller in _priceControllerList) {
+      controller.dispose();
+    }
     super.dispose();
   }
 
@@ -62,7 +69,9 @@ class DetailProductFormState extends State<DetailProductForm> {
           inputAction: TextInputAction.newline,
         ),
         Row(
-          children: _getPriceWidgets(),
+          children: _priceControllerList
+              .map((controller) => PriceWidget(controller: controller))
+              .toList(growable: false),
         ),
         Row(
           children: [
@@ -87,37 +96,19 @@ class DetailProductFormState extends State<DetailProductForm> {
     );
   }
 
-  ///crea i vari widget per i prezzi
-  List<Widget> _getPriceWidgets() {
-    if (_priceWidgetList.isEmpty) {
-      for (double d in widget.product.prezzi) {
-        final controller = TextEditingController(text: '$d');
-        _priceControllerList.add(controller);
-
-        _priceWidgetList.add(PriceWidget(controller: controller));
-      }
-    }
-    return _priceWidgetList;
-  }
-
   void _aggiungiPrezzo() {
-    if (_priceWidgetList.length < 3) {
+    if (_priceControllerList.length < 3) {
       setState(() {
-        final controller = TextEditingController(text: '0.0');
-        _priceControllerList.add(controller);
-
-        _priceWidgetList.add(PriceWidget(controller: controller));
+        _priceControllerList.add(TextEditingController(text: '0.0'));
       });
     }
   }
 
   void _rimuoviPrezzo() {
-    if (_priceWidgetList.length > 1) {
-      _priceControllerList.last.dispose();
-      _priceControllerList.removeLast();
-      setState(() {
-        _priceWidgetList.removeLast();
-      });
+    if (_priceControllerList.length > 1) {
+      final controller = _priceControllerList.removeLast();
+      setState(() {});
+      controller.dispose();
     }
   }
 

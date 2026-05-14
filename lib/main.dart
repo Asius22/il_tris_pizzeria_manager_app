@@ -28,7 +28,7 @@ Future<void> main() async {
     providers: [
       BlocProvider(
         lazy: false,
-        create: (context) => ProductBloc(),
+        create: (context) => ProductBloc()..add(FetchProductEvent()),
       ),
       BlocProvider(
         create: (context) => BusinesshoursBloc(),

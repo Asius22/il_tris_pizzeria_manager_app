@@ -168,8 +168,9 @@ class _MenuAddProductFormState extends State<MenuAddProductForm> {
         style: ToastificationStyle.flat,
         autoCloseDuration: const Duration(seconds: 5),
         type: ToastificationType.info);
-    for (String l in BlocProvider.of<ProductBloc>(context).lingue
-      ..remove('it')) {
+    final lingue = context.read<ProductBloc>().lingue.where((l) => l != 'it');
+
+    for (String l in lingue) {
       BlocProvider.of<TranslatorBloc>(context).add(TranslateProductsEvent(
           [p],
           l,

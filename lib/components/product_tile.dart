@@ -12,18 +12,20 @@ class ProductTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
-    return OpenContainer(
-      transitionType: ContainerTransitionType.fade,
-      middleColor: colorScheme.secondaryContainer,
-      openColor: colorScheme.secondaryContainer,
-      transitionDuration: animationDuration,
-      closedBuilder: (context, action) =>
-          MenuTile(product: product, onTap: action),
-      closedElevation: _elevation,
-      closedColor: colorScheme.surface,
-      openBuilder: (context, action) => DetailPage(
-        product: product,
-        onTap: action,
+    return RepaintBoundary(
+      child: OpenContainer(
+        transitionType: ContainerTransitionType.fade,
+        middleColor: colorScheme.secondaryContainer,
+        openColor: colorScheme.secondaryContainer,
+        transitionDuration: animationDuration,
+        closedBuilder: (context, action) =>
+            MenuTile(product: product, onTap: action),
+        closedElevation: _elevation,
+        closedColor: colorScheme.surface,
+        openBuilder: (context, action) => DetailPage(
+          product: product,
+          onTap: action,
+        ),
       ),
     );
   }

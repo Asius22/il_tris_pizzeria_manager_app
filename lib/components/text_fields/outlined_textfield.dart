@@ -27,8 +27,10 @@ class OutlinedTextField extends StatefulWidget {
 class OutlinedTextFieldState extends State<OutlinedTextField> {
   late final InputDecoration _decoration;
   late final TextEditingController _controller;
+  late final bool _ownsController;
   @override
   void initState() {
+    _ownsController = widget.controller == null;
     _controller =
         widget.controller ?? TextEditingController(text: widget.initialText);
 
@@ -43,7 +45,9 @@ class OutlinedTextFieldState extends State<OutlinedTextField> {
 
   @override
   void dispose() {
-    _controller.dispose();
+    if (_ownsController) {
+      _controller.dispose();
+    }
     super.dispose();
   }
 

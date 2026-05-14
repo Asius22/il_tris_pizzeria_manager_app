@@ -221,10 +221,10 @@ class _RowStatus extends StatelessWidget {
       children: [
         Expanded(child: Text(label, overflow: TextOverflow.ellipsis)),
         if (busy)
-          SizedBox(
+          const SizedBox(
             width: 16,
             height: 16,
-            child: const CircularProgressIndicator(strokeWidth: 2),
+            child: CircularProgressIndicator(strokeWidth: 2),
           ),
         if (icon != null) ...[
           const SizedBox(width: 8),

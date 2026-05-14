@@ -9,18 +9,21 @@ import 'package:sizer/sizer.dart';
 class MenuPage extends StatelessWidget {
   const MenuPage({super.key, this.productList = const []});
 
+  static final List<ProductType> _types = List.unmodifiable(
+    ProductType.values.toList()
+      ..sort(
+        (a, b) => a.name.compareTo(b.name),
+      ),
+  );
+
   final List<Product> productList;
 
   @override
   Widget build(BuildContext context) {
-    final List<ProductType> types = ProductType.values.map((e) => e).toList()
-      ..sort(
-        (a, b) => a.name.compareTo(b.name),
-      );
     return SizedBox(
       width: 100.w,
       child: ListView(
-        children: types
+        children: _types
             .map<Widget>(
               (categoria) => Padding(
                 padding: const EdgeInsets.all(8),
